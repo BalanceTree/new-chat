@@ -55,11 +55,12 @@ body{
 .nav::-webkit-scrollbar{display:none;}
 .nav a{
   flex:0 0 auto;text-align:center;text-decoration:none;
-  font-size:13px;font-weight:700;letter-spacing:.01em;white-space:nowrap;
-  padding:10px 14px;border-radius:13px;
-  border:1px solid var(--line);background:var(--card);color:var(--muted);
+  font-size:13.5px;font-weight:700;letter-spacing:.01em;white-space:nowrap;
+  padding:10px 16px;border-radius:13px;
+  border:1px solid var(--line);background:var(--card);color:rgba(255,255,255,.7);
   backdrop-filter:blur(12px);
   transition:all .18s ease;
+  display:flex;align-items:center;gap:5px;
 }
 .nav a.active{
   background:linear-gradient(120deg,var(--sky-mid),#8a6bff);
@@ -119,7 +120,7 @@ body{
 .day:has(.pin){padding-top:24px;}
 .day .pin{position:absolute;top:6px;left:6px;right:6px;z-index:2;font-size:9px;font-weight:700;letter-spacing:.02em;background:linear-gradient(120deg,#ff9d3c,var(--amber));color:#1a1206;padding:3px 4px;border-radius:8px;white-space:nowrap;text-align:center;box-shadow:0 6px 16px -8px rgba(255,184,77,.9);}
 
-.section-label{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:28px 4px 12px;}
+.section-label{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.65);font-weight:800;margin:28px 4px 12px;}
 .focus{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
 .fcard{
   background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 18px;
@@ -130,7 +131,7 @@ body{
 .fcard.rain-c{border-top-color:var(--rain);}
 .fcard.heat-c{border-top-color:var(--amber);}
 .fcard.air-c{border-top-color:var(--bad);}
-.fcard .ttl{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.04em;}
+.fcard .ttl{font-size:13px;font-weight:800;color:rgba(255,255,255,.85);letter-spacing:.04em;}
 .fcard .big{font-family:'Pretendard Variable','Pretendard',sans-serif;font-weight:900;font-size:22px;margin:8px 0 6px;color:var(--ink);}
 .fcard.rain-c .big{color:var(--rain);}
 .fcard.heat-c .big{color:var(--amber);}
