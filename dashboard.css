@@ -2,7 +2,7 @@
 
 .dash-hero{
   position:relative;border-radius:24px;overflow:hidden;text-align:center;
-  padding:34px 26px 30px;margin-bottom:14px;color:#fff;
+  padding:22px 26px 20px;margin-bottom:14px;color:#fff;
   background:
     radial-gradient(120% 130% at 0% 0%, rgba(79,124,255,.95), transparent 55%),
     radial-gradient(120% 120% at 100% 0%, rgba(167,110,255,.8), transparent 55%),
@@ -14,14 +14,14 @@
 .dash-hero h1{font-family:'Pretendard Variable','Pretendard',sans-serif;font-weight:900;font-size:clamp(24px,6vw,36px);line-height:1.05;margin:8px 0 4px;text-shadow:0 6px 30px rgba(0,0,0,.35);}
 .dash-hero .place{font-size:13px;opacity:.85;letter-spacing:.04em;}
 
-.dday{margin:20px 0 6px;}
-.dday .num{font-family:'Pretendard Variable','Pretendard',sans-serif;font-weight:900;font-size:clamp(54px,16vw,92px);line-height:.9;letter-spacing:-.02em;background:linear-gradient(180deg,#fff,#bcd2ff);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 40px rgba(120,160,255,.4);}
+.dday{margin:12px 0 4px;}
+.dday .num{font-family:'Pretendard Variable','Pretendard',sans-serif;font-weight:900;font-size:clamp(40px,12vw,68px);line-height:.9;letter-spacing:-.02em;background:linear-gradient(180deg,#fff,#bcd2ff);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 40px rgba(120,160,255,.4);}
 .dday .num small{font-size:.32em;-webkit-text-fill-color:#fff;color:#fff;font-weight:700;margin-left:6px;letter-spacing:.02em;}
-.dday .label{font-size:13.5px;opacity:.9;margin-top:6px;font-weight:500;}
-.dday .clock{margin-top:12px;display:inline-flex;gap:8px;}
-.dday .seg{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:11px;padding:8px 12px;min-width:58px;backdrop-filter:blur(6px);}
-.dday .seg b{display:block;font-family:'Pretendard Variable','Pretendard',sans-serif;font-weight:900;font-size:20px;line-height:1;}
-.dday .seg span{font-size:10px;opacity:.75;letter-spacing:.05em;}
+.dday .label{font-size:12.5px;opacity:.9;margin-top:4px;font-weight:500;}
+.dday .clock{margin-top:8px;display:inline-flex;gap:6px;}
+.dday .seg{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:6px 10px;min-width:50px;backdrop-filter:blur(6px);}
+.dday .seg b{display:block;font-family:'Pretendard Variable','Pretendard',sans-serif;font-weight:900;font-size:17px;line-height:1;}
+.dday .seg span{font-size:9px;opacity:.75;letter-spacing:.05em;}
 
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .tile{

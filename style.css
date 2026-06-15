@@ -67,7 +67,7 @@ body{
   color:#fff;border-color:transparent;
   box-shadow:0 12px 30px -14px rgba(79,124,255,.8);
 }
-.nav a:hover{color:var(--ink);border-color:rgba(255,255,255,.28);transform:translateY(-1px);}
+.nav a:hover{color:#fff;border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.12);box-shadow:0 0 0 1px rgba(255,255,255,.15) inset;}
 .nav a.active:hover{color:#fff;}
 
 .hero{
