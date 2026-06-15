@@ -2,14 +2,18 @@
   if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const box=document.getElementById('rainfall');
   if(box){
-    const W=box.clientWidth||720;
-    for(let i=0;i<50;i++){
+    const W=box.offsetWidth||box.clientWidth||720;
+    /* 히어로 전체 높이에 맞게 세로 시작점도 분산 */
+    for(let i=0;i<90;i++){
       const d=document.createElement('div');
       d.className='drop';
       d.style.left=Math.random()*W+'px';
-      d.style.animationDuration=(0.6+Math.random()*0.7)+'s';
-      d.style.animationDelay=(Math.random()*1.6)+'s';
-      d.style.opacity=(0.3+Math.random()*0.6);
+      d.style.animationDuration=(0.55+Math.random()*0.75)+'s';
+      /* 시작 딜레이를 duration 내로 분산 → 화면 채워진 채로 시작 */
+      d.style.animationDelay=(-Math.random()*1.8)+'s';
+      d.style.opacity=(0.25+Math.random()*0.55);
+      /* 굵기 살짝 랜덤 */
+      d.style.width=(1+Math.random()*1.2)+'px';
       box.appendChild(d);
     }
   }

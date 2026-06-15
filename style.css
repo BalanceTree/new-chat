@@ -93,9 +93,19 @@ body{
 .hero .sub{font-size:14px;opacity:.94;line-height:1.55;max-width:48ch;}
 .hero .badge{display:inline-block;margin-top:15px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);padding:6px 13px;border-radius:30px;font-size:12.5px;font-weight:600;letter-spacing:.02em;backdrop-filter:blur(6px);}
 .updated{position:absolute;top:18px;right:20px;font-size:11px;opacity:.85;letter-spacing:.03em;z-index:3;}
-.rainfall{position:absolute;left:0;right:0;bottom:0;height:64px;overflow:hidden;pointer-events:none;z-index:1;}
-.drop{position:absolute;bottom:100%;width:1.5px;height:18px;background:linear-gradient(transparent,rgba(168,198,255,.9));animation:fall linear infinite;}
-@keyframes fall{to{transform:translateY(160px);opacity:0;}}
+.rainfall{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1;}
+.drop{
+  position:absolute;bottom:100%;
+  width:1.5px;height:22px;
+  background:linear-gradient(transparent,rgba(168,205,255,.85));
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  0%   { opacity:0; }
+  6%   { opacity:1; }
+  80%  { opacity:1; }
+  100% { transform:translateY(500px); opacity:0; }
+}
 
 /* 날씨 일별 카드 — 컴팩트 + 글래스 */
 .days{margin-top:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
