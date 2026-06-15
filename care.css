@@ -128,6 +128,14 @@
 .timer-status.running { color:#ffb3d9;font-weight:700; }
 .timer-status.done { color:#ff7d6b;font-weight:800;animation:blink .6s step-end infinite; }
 @keyframes blink { 50%{opacity:0;} }
+.noti-badge {
+  margin-top:10px;font-size:11.5px;font-weight:700;letter-spacing:.01em;
+  padding:5px 12px;border-radius:20px;display:inline-block;
+  transition:background .2s,color .2s;
+}
+.noti-badge.idle { background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.12); }
+.noti-badge.on   { background:rgba(67,217,163,.15);color:var(--good);border:1px solid rgba(67,217,163,.35); }
+.noti-badge.off  { background:rgba(255,100,100,.1);color:#ff9d9d;border:1px solid rgba(255,100,100,.25); }
 
 /* 한창섭 카메라 체크리스트 */
 .cs-checklist {
