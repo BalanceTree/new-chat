@@ -25,6 +25,18 @@ body{
 }
 .wrap{width:100%;max-width:760px;}
 
+.nav{display:flex;gap:8px;margin-bottom:14px;}
+.nav a{
+  flex:1;text-align:center;text-decoration:none;
+  font-size:13px;font-weight:700;letter-spacing:.02em;
+  padding:10px 0;border-radius:12px;
+  border:1px solid var(--line);background:var(--card);color:var(--muted);
+  transition:all .15s ease;
+}
+.nav a.active{background:var(--night);color:#fff;border-color:var(--night);}
+.nav a:hover{border-color:var(--sky-mid);color:var(--ink);}
+.nav a.active:hover{color:#fff;}
+
 .hero{
   position:relative;border-radius:22px;overflow:hidden;
   padding:30px 28px 26px;

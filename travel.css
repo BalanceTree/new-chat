@@ -1,0 +1,75 @@
+/* travel.css — 이동 페이지 전용. style.css의 :root/body/hero/nav 등을 재사용 */
+
+/* 항공 왕복 카드 */
+.flights{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;}
+.flight{
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:18px 18px 16px;border-top:3px solid var(--sky-mid);
+}
+.flight.ret{border-top-color:var(--amber);}
+.flight .tag{
+  display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;
+  color:#fff;background:var(--sky-mid);border-radius:20px;padding:3px 11px;margin-bottom:12px;
+}
+.flight.ret .tag{background:var(--amber);}
+.flight .route{display:flex;align-items:center;justify-content:space-between;gap:6px;}
+.flight .pt{text-align:center;flex:1;}
+.flight .pt .time{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;font-size:24px;line-height:1;}
+.flight .pt .code{font-size:13px;font-weight:700;color:var(--ink);margin-top:4px;}
+.flight .pt .ap{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.3;}
+.flight .mid{flex:none;text-align:center;color:var(--muted);min-width:78px;}
+.flight .mid .dur{font-size:11px;font-weight:700;}
+.flight .mid .line{height:1px;background:var(--line);margin:6px 0;position:relative;}
+.flight .mid .line::after{content:"✈";position:absolute;right:-2px;top:-8px;font-size:12px;color:var(--sky-mid);}
+.flight.ret .mid .line::after{color:var(--amber);}
+.flight .meta{margin-top:14px;border-top:1px dashed var(--line);padding-top:12px;display:flex;flex-direction:column;gap:5px;}
+.flight .meta .row{display:flex;justify-content:space-between;font-size:12px;}
+.flight .meta .row span:first-child{color:var(--muted);}
+.flight .meta .row span:last-child{font-weight:700;text-align:right;}
+.flight .meta .bad{color:var(--bad);}
+.flight .meta .good{color:var(--good);}
+.flight .pnr{font-family:'Zen Kaku Gothic New',sans-serif;letter-spacing:.08em;}
+
+/* 타임라인 */
+.timeline{margin-top:6px;position:relative;padding-left:6px;}
+.tl-item{position:relative;padding:0 0 4px 30px;}
+.tl-item::before{
+  content:"";position:absolute;left:7px;top:6px;width:11px;height:11px;border-radius:50%;
+  background:var(--card);border:2.5px solid var(--sky-mid);z-index:1;
+}
+.tl-item::after{
+  content:"";position:absolute;left:12px;top:14px;bottom:-6px;width:2px;background:var(--line);
+}
+.tl-item:last-child::after{display:none;}
+.tl-item.warn::before{border-color:var(--amber);}
+.tl-item.crit::before{border-color:var(--bad);background:var(--bad);}
+.tl-card{
+  background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:12px 14px;margin-bottom:12px;
+}
+.tl-card.warn{border-color:#f0e2cd;background:#fbf6ee;}
+.tl-card.crit{border-color:#f0d3c9;background:#fbefe9;}
+.tl-time{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;font-size:15px;color:var(--ink);}
+.tl-time .sub{font-size:11px;font-weight:500;color:var(--muted);margin-left:6px;letter-spacing:.02em;}
+.tl-card.crit .tl-time{color:var(--bad);}
+.tl-desc{font-size:13px;color:var(--ink);margin-top:3px;line-height:1.5;}
+.tl-desc .place{font-weight:700;}
+.tl-desc small{color:var(--muted);}
+
+.return-box{
+  margin-top:14px;background:var(--card);border:1px solid var(--line);
+  border-left:3px solid var(--amber);border-radius:14px;padding:16px 18px;
+}
+.return-box h3{font-family:'Zen Kaku Gothic New',sans-serif;font-size:14px;margin-bottom:6px;}
+.return-box p{font-size:13px;color:var(--muted);line-height:1.6;}
+
+.care{margin-top:14px;background:var(--night);color:#fff;border-radius:18px;padding:22px 24px;}
+.care h3{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:15px;margin-bottom:12px;letter-spacing:.03em;display:flex;align-items:center;gap:8px;}
+.care ol{list-style:none;counter-reset:c;display:flex;flex-direction:column;gap:10px;}
+.care li{counter-increment:c;position:relative;padding-left:30px;font-size:13.5px;line-height:1.6;opacity:.95;}
+.care li::before{content:counter(c);position:absolute;left:0;top:0;width:20px;height:20px;border-radius:50%;background:var(--amber);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.care li b{color:var(--haze);}
+
+@media(max-width:560px){
+  .flights{grid-template-columns:1fr;}
+}
