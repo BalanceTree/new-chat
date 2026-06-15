@@ -70,9 +70,9 @@
           <div class="rate" id="fx-rate">100엔 = … 원</div>
           <div class="upd" id="fx-upd">불러오는 중…</div>
           <div class="row" onclick="event.preventDefault()">
-            <input id="fx-jpy" type="number" inputmode="decimal" min="0" placeholder="엔">
+            <div class="fx-col"><span class="fx-lbl">JPY 엔</span><input id="fx-jpy" type="number" inputmode="decimal" min="0" placeholder="0"></div>
             <span class="eq">⇄</span>
-            <input id="fx-krw" type="number" inputmode="decimal" min="0" placeholder="원">
+            <div class="fx-col"><span class="fx-lbl">KRW 원</span><input id="fx-krw" type="number" inputmode="decimal" min="0" placeholder="0"></div>
           </div>
         </div>
       </a>
