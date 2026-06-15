@@ -5,53 +5,57 @@
   padding:22px 26px 20px;margin-bottom:14px;color:#fff;
   background: linear-gradient(160deg,#1b2a6b 0%, #131a36 70%, #0c1124 100%);
   border:1px solid rgba(255,255,255,.12);box-shadow:var(--glow);
+  transform: translateZ(0); /* GPU 레이어 강제 생성 */
+  isolation: isolate;
 }
 
-/* 움직이는 오로라 레이어 1 */
+/* 오로라 orb — 부모보다 크게 만들어 translate로 이동 (overflow:hidden이 안정적으로 클립) */
 .dash-hero::before {
-  content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  content:'';pointer-events:none;z-index:0;
+  position:absolute;
+  width:180%;height:180%;
+  top:-40%;left:-40%;
   background:
-    radial-gradient(ellipse 80% 70% at 15% 10%, rgba(79,124,255,.75), transparent 65%),
-    radial-gradient(ellipse 60% 60% at 85% 15%, rgba(167,110,255,.65), transparent 60%);
-  animation: auroraA 9s ease-in-out infinite;
+    radial-gradient(ellipse 45% 40% at 38% 38%, rgba(79,124,255,.72), transparent 60%),
+    radial-gradient(ellipse 38% 35% at 72% 25%, rgba(167,110,255,.6), transparent 58%);
+  animation: auroraA 10s ease-in-out infinite;
+  will-change: transform;
 }
-/* 움직이는 오로라 레이어 2 */
+/* 두 번째 orb 레이어 */
 .dash-hero::after {
-  content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  content:'';pointer-events:none;z-index:0;
+  position:absolute;
+  width:180%;height:180%;
+  top:-40%;left:-40%;
   background:
-    radial-gradient(ellipse 55% 50% at 60% 90%, rgba(67,217,163,.28), transparent 65%),
-    radial-gradient(ellipse 40% 40% at 20% 70%, rgba(120,90,255,.3), transparent 60%);
-  animation: auroraB 12s ease-in-out infinite;
+    radial-gradient(ellipse 40% 38% at 62% 78%, rgba(67,217,163,.22), transparent 60%),
+    radial-gradient(ellipse 35% 32% at 22% 68%, rgba(110,70,220,.28), transparent 58%);
+  animation: auroraB 14s ease-in-out infinite;
+  will-change: transform;
 }
 .dash-hero > * { position:relative;z-index:1; }
 
 @keyframes auroraA {
-  0%,100% { transform: translate(0,0) scale(1); }
-  30%      { transform: translate(8%,6%) scale(1.05); }
-  60%      { transform: translate(-6%,10%) scale(.97); }
-  80%      { transform: translate(4%,-4%) scale(1.03); }
+  0%,100% { transform: translate(0,0); }
+  30%      { transform: translate(6%,5%); }
+  60%      { transform: translate(-5%,9%); }
+  80%      { transform: translate(3%,-3%); }
 }
 @keyframes auroraB {
-  0%,100% { transform: translate(0,0) scale(1); }
-  25%      { transform: translate(-7%,-8%) scale(1.06); }
-  55%      { transform: translate(9%,5%) scale(.95); }
-  80%      { transform: translate(-3%,8%) scale(1.04); }
+  0%,100% { transform: translate(0,0); }
+  25%      { transform: translate(-6%,-7%); }
+  55%      { transform: translate(8%,4%); }
+  80%      { transform: translate(-2%,7%); }
 }
 
-/* D-day 숫자 은은한 펄스 글로우 */
-.dday .num {
-  animation: numGlow 4s ease-in-out infinite;
-}
+/* D-day 숫자 글로우 펄스 */
+.dday .num { animation: numGlow 4s ease-in-out infinite; }
 @keyframes numGlow {
   0%,100% { filter: drop-shadow(0 0 18px rgba(100,150,255,.35)); }
-  50%      { filter: drop-shadow(0 0 36px rgba(100,150,255,.7)); }
+  50%      { filter: drop-shadow(0 0 38px rgba(100,150,255,.72)); }
 }
 
-/* 타일 은은한 shimmer 테두리 */
-.tile {
-  background: var(--card);
-  transition: transform .18s, box-shadow .18s, border-color .18s;
-}
+/* 타일 shimmer hover */
 .tile::before {
   content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
   background: linear-gradient(135deg, rgba(255,255,255,.06) 0%, transparent 50%, rgba(255,255,255,.03) 100%);
