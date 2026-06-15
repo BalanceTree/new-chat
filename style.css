@@ -110,13 +110,17 @@ body{
 /* 날씨 일별 카드 — 컴팩트 + 글래스 */
 .days{margin-top:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
 .day{
-  background:var(--card);border:1px solid var(--line);border-radius:15px;
+  background:var(--card);border:1px solid rgba(255,200,80,.2);border-radius:15px;
   padding:14px 9px 16px;text-align:center;position:relative;overflow:hidden;
   backdrop-filter:blur(12px);transition:transform .18s, box-shadow .18s, border-color .18s;
-  display:flex;flex-direction:column;align-items:center;
+  background:linear-gradient(180deg,rgba(255,200,80,.05) 0%,var(--card) 40%);
 }
-.day:hover{transform:translateY(-3px);box-shadow:0 18px 36px -22px rgba(0,0,0,.7);border-color:rgba(255,255,255,.22);}
-.day.wet{border-color:rgba(86,182,240,.32);background:linear-gradient(180deg,rgba(86,182,240,.08),rgba(86,182,240,.03));}
+.day:hover{transform:translateY(-3px);box-shadow:0 18px 36px -22px rgba(0,0,0,.7);border-color:rgba(255,200,80,.45);}
+.day.wet{
+  border-color:rgba(86,182,240,.38);
+  background:linear-gradient(180deg,rgba(86,182,240,.1) 0%,rgba(86,182,240,.03) 100%);
+}
+.day.wet:hover{border-color:rgba(86,182,240,.65);}
 .crain{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;border-radius:inherit;}
 .crain .drop{position:absolute;bottom:100%;width:1px;height:13px;background:linear-gradient(transparent,rgba(168,205,240,.55));animation:fall linear infinite;}
 .day :where(.dow,.date,.ico,.hi,.lo,.rain,.cond,.card-extra,.card-aqi){position:relative;z-index:1;}
@@ -125,7 +129,7 @@ body{
 .day .ico{font-size:22px;line-height:1;margin-bottom:6px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4));}
 .day .hi{font-family:'Pretendard Variable','Pretendard',sans-serif;font-weight:700;font-size:20px;color:var(--ink);}
 .day .lo{font-size:12px;color:var(--muted);margin-top:1px;}
-.day .rain{margin-top:8px;font-size:11px;font-weight:700;color:var(--rain);background:rgba(86,182,240,.16);border:1px solid rgba(86,182,240,.28);border-radius:20px;padding:4px 6px;width:100%;box-sizing:border-box;line-height:1.45;word-break:keep-all;}
+.day .rain{display:block;margin-top:8px;font-size:11px;font-weight:700;color:var(--rain);background:rgba(86,182,240,.16);border:1px solid rgba(86,182,240,.28);border-radius:20px;padding:4px 8px;line-height:1.5;word-break:keep-all;}
 .day .rain.hi-rain{color:#fff;background:linear-gradient(120deg,#3aa0e8,#56b6f0);border-color:transparent;box-shadow:0 6px 16px -8px rgba(86,182,240,.9);}
 .day .rain.low-rain{color:var(--good);background:rgba(67,217,163,.14);border-color:rgba(67,217,163,.3);}
 .day .cond{font-size:11px;color:var(--muted);margin-top:7px;line-height:1.35;}
@@ -220,7 +224,7 @@ a{color:var(--haze);}
 .ma-mm{font-size:10.5px;color:var(--muted);font-weight:400;}
 
 /* 카드 내 추가 지표 */
-.card-extra{font-size:10px;color:var(--muted);margin-top:6px;line-height:1.65;word-break:keep-all;width:100%;}
+.card-extra{font-size:10px;color:var(--muted);margin-top:6px;line-height:1.65;word-break:keep-all;}
 .card-aqi{font-size:10.5px;margin-top:4px;}
 .aqi-good{color:#7dd8a0;}.aqi-mod{color:#ffe57a;}.aqi-bad{color:#ff9d9d;}.aqi-very{color:#ff6b6b;font-weight:700;}
 
