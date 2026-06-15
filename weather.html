@@ -96,17 +96,23 @@
       </div>
     </div>
 
+    <div class="section-label">📡 멀티모델 분석</div>
+    <div id="model-analysis" class="model-analysis" style="display:none">
+      <div class="ma-loading">모델 데이터 불러오는 중…</div>
+    </div>
+
     <div class="note">
-      <b>예보 신뢰도 안내</b> — 18~21일은 아직 며칠 남아 장기 예보 구간이라 출처마다 기온·강수확률이 조금씩 다릅니다(특히 토요일). 위 수치는 여러 예보를 종합한 추정이며, <b>출발 2~3일 전 다시 확인</b>하면 훨씬 정확해져요. 원하시면 그때 최신값으로 업데이트해 드릴게요.
+      <b>예보 신뢰도 안내</b> — 위 수치는 ECMWF · NOAA GFS · JMA(일본기상청) 세 모델을 실시간으로 호출해 평균낸 값이에요. 페이지를 열 때마다 자동 갱신됩니다. 모델 간 편차가 클수록 예보 불확실성이 높아요.
     </div>
 
     <div class="foot">
-      자료: weather.com · AccuWeather · holiday-weather · japanhighlights 종합 (2026.06.15 기준)<br>
+      자료: Open-Meteo (ECMWF IFS · NOAA GFS · JMA) — 페이지 로드 시 실시간 갱신<br>
       장마철 특성상 실제 기상은 변동될 수 있습니다.
     </div>
   </div>
 
 <script src="rain.js"></script>
+<script src="weather-api.js"></script>
 <script src="common.js"></script>
 </body>
 </html>
