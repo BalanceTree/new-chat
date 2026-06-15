@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>성은 케어 👁 | 도쿄 trip</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendard-dynamic-subset.min.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="care.css">
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <a href="index.html">🏠 홈</a>
+      <a href="weather.html">☂ 날씨</a>
+      <a href="travel.html">🚗 이동</a>
+      <a href="itinerary.html">🗓️ 일정</a>
+      <a href="prep.html">🎒 준비</a>
+      <a href="stay.html">🏨 숙소</a>
+      <a href="care.html" class="active">👁 케어</a>
+    </nav>
+
+    <div class="care-hero">
+      <div class="hero-glow"></div>
+      <div class="eyebrow">POST-OP EYE CARE · 성은 전용</div>
+      <div class="hero-eye">👁</div>
+      <h1>성은 케어 가이드</h1>
+      <p class="sub">눈 수술 후 첫 해외여행 — 놓치면 안 되는 케어 포인트만 모았어요.</p>
+      <div class="hero-tags">
+        <span>✈️ 기내</span>
+        <span>🚗 이동</span>
+        <span>🌆 현지</span>
+      </div>
+    </div>
+
+    <!-- 인공눈물 타이머 -->
+    <div class="section-label">⏱ 기내 인공눈물 타이머</div>
+    <div class="timer-card">
+      <div class="timer-desc">기내 습도 15% 미만 — <b>30분~1시간</b> 간격으로 넣어줘요</div>
+      <div class="timer-display" id="timer-display">30:00</div>
+      <div class="timer-btns">
+        <button class="tbtn" id="btn-30" data-min="30">30분</button>
+        <button class="tbtn" id="btn-60" data-min="60">1시간</button>
+        <button class="tbtn reset" id="btn-reset">↺ 리셋</button>
+      </div>
+      <div class="timer-status" id="timer-status">타이머를 눌러 시작하세요</div>
+    </div>
+
+    <!-- 체크리스트 -->
+    <div class="section-label">✅ 케어 체크리스트</div>
+    <div class="care-checks">
+
+      <div class="care-group">
+        <div class="group-tag car">🚗 이동 중 (차량)</div>
+        <label class="care-chk"><input type="checkbox" id="cc-ac"><span>에어컨 송풍구 방향 <b>아래로</b> 조절<small>눈에 바람 직사 절대 금지</small></span></label>
+        <label class="care-chk"><input type="checkbox" id="cc-eyedrop-car"><span>탑승 전 인공눈물 1회 투여<small>긴 이동 전 미리 챙기기</small></span></label>
+      </div>
+
+      <div class="care-group">
+        <div class="group-tag flight">✈️ 기내</div>
+        <label class="care-chk"><input type="checkbox" id="cc-ac-flight"><span>기내 에어컨 송풍구 방향 확인 · 아래로<small>직사 금지, 옆 승객 송풍구도 체크</small></span></label>
+        <label class="care-chk"><input type="checkbox" id="cc-eyedrop-1"><span>인공눈물 — 이륙 후 30분 이내 1회<small>일회용 단위 챙겨오기</small></span></label>
+        <label class="care-chk"><input type="checkbox" id="cc-eyedrop-2"><span>인공눈물 — 중간 1회<small>위 타이머 참고</small></span></label>
+        <label class="care-chk"><input type="checkbox" id="cc-eyedrop-3"><span>인공눈물 — 착륙 전 1회<small>착지 후 이동 대비</small></span></label>
+      </div>
+
+      <div class="care-group">
+        <div class="group-tag local">🌆 도쿄 현지</div>
+        <label class="care-chk"><input type="checkbox" id="cc-sunglass"><span>야외 활동 시 <b>선글라스 / UV 차단 안경</b> 착용<small>자외선 + 먼지 차단 필수</small></span></label>
+        <label class="care-chk"><input type="checkbox" id="cc-eyedrop-local"><span>인공눈물 휴대 — 하루 4~6회 수시 투여<small>장마철이라도 바람·먼지 있음</small></span></label>
+        <label class="care-chk"><input type="checkbox" id="cc-ac-local"><span>숙소·실내 에어컨 바람 방향 항상 체크<small>닛포리 숙소 체크인 직후 확인</small></span></label>
+        <label class="care-chk"><input type="checkbox" id="cc-rub"><span>눈 비비거나 만지지 않기<small>손 세정 후에도 직접 접촉 자제</small></span></label>
+      </div>
+
+      <div class="care-group">
+        <div class="group-tag return">🛬 귀국 이동</div>
+        <label class="care-chk"><input type="checkbox" id="cc-eyedrop-return"><span>귀국 기내 동일하게 인공눈물 챙기기</span></label>
+        <label class="care-chk"><input type="checkbox" id="cc-followup"><span>귀국 후 병원 추적 관찰 일정 확인</span></label>
+      </div>
+
+    </div>
+
+    <div class="care-note">
+      <b>💊 인공눈물 팁</b> — 일회용 단안경(앰플형) 기준으로 1개당 1회 사용이 원칙이에요. 비행 왕복 + 현지 4일치 넉넉하게 챙겨오는 게 좋고, 개봉 후 남은 건 버리는 게 위생적이에요.
+    </div>
+
+    <div class="foot">
+      체크 상태는 이 기기에 저장됩니다.<br>성은, 건강하고 즐거운 도쿄 여행 되세요 🌸
+    </div>
+  </div>
+
+<script src="care.js"></script>
+<script src="common.js"></script>
+</body>
+</html>
