@@ -68,6 +68,11 @@
 .fx-chip:hover{border-color:var(--sky-mid);background:rgba(79,124,255,.16);}
 .fx-chip.refresh{margin-left:auto;color:var(--good);border-color:rgba(67,217,163,.3);}
 
+.camera-group {
+  border-top: 3px solid rgba(255,184,77,.6);
+}
+.camera-group h3 { color: var(--amber); }
+
 @media(max-width:560px){
   .checks{grid-template-columns:1fr;}
   .money{grid-template-columns:1fr;}

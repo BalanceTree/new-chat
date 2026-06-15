@@ -152,6 +152,12 @@
 }
 .care-note b { color: #ffb3d9; }
 
+.care-group.jin {
+  background: linear-gradient(135deg, rgba(255,184,77,.08), rgba(67,217,163,.06));
+  border-color: rgba(255,184,77,.25);
+}
+.group-tag.jin-tag { background: rgba(255,184,77,.15); border: 1px solid rgba(255,184,77,.35); color: var(--amber); }
+
 @media (max-width: 560px) {
   .timer-btns { gap: 8px; }
   .tbtn { padding: 10px 16px; font-size: 13px; }
