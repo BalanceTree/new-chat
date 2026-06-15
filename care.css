@@ -23,7 +23,13 @@
 }
 .care-hero .sub { font-size:14px;opacity:.85;line-height:1.6;max-width:38ch;margin:0 auto 18px; }
 .hero-tags { display:flex;gap:8px;justify-content:center;flex-wrap:wrap; }
-.hero-tags span { background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:5px 14px;border-radius:30px;font-size:12.5px;font-weight:700;backdrop-filter:blur(6px); }
+.hero-tags a {
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);
+  padding:5px 14px;border-radius:30px;font-size:12.5px;font-weight:700;
+  backdrop-filter:blur(6px);text-decoration:none;color:inherit;
+  transition:background .15s, border-color .15s;
+}
+.hero-tags a:hover { background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.5); }
 
 /* 멤버 카드 공통 */
 .member-card {

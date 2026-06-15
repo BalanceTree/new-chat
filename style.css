@@ -1,3 +1,4 @@
+html { scroll-behavior: smooth; }
 :root{
   --night:#0f1626;
   --sky-top:#2748b8;
