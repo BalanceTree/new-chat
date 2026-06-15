@@ -38,7 +38,14 @@
 .acc-date .dow{font-size:11px;font-weight:700;color:var(--muted);margin-top:3px;letter-spacing:.06em;}
 .acc-main{flex:1;min-width:0;}
 .acc-title{font-family:'Pretendard Variable','Pretendard',sans-serif;font-weight:700;font-size:16px;color:var(--ink);}
-.acc-sub{font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.4;}
+.acc-spots{display:flex;flex-wrap:wrap;gap:5px;margin:5px 0 4px;}
+.acc-spots span{
+  font-size:11.5px;font-weight:700;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);
+  color:rgba(255,255,255,.85);padding:3px 9px;border-radius:20px;
+  white-space:nowrap;
+}
+.acc-sub{font-size:12.5px;color:var(--muted);margin-top:2px;line-height:1.4;}
 .acc-tag{
   display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.03em;
   padding:2px 9px;border-radius:20px;margin-right:5px;margin-top:6px;
