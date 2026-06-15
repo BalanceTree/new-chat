@@ -13,10 +13,12 @@
 <body>
   <div class="wrap">
     <nav class="nav">
-      <a href="index.html">☂ 날씨</a>
+      <a href="index.html">🏠 홈</a>
+      <a href="weather.html">☂ 날씨</a>
       <a href="travel.html">🚗 이동</a>
       <a href="itinerary.html">🗓️ 일정</a>
       <a href="prep.html" class="active">🎒 준비</a>
+      <a href="stay.html">🏨 숙소</a>
     </nav>
 
     <div class="prep-hero">
@@ -50,12 +52,6 @@
       </div>
 
       <div class="chk-group">
-        <h3>👁️ 성은님 눈 케어</h3>
-        <label class="chk"><input type="checkbox" id="c-eyedrop"><span class="lbl">일회용 인공눈물<span class="star">★</span><small>기내·현지 수시 점안</small></span></label>
-        <label class="chk"><input type="checkbox" id="c-sunglass"><span class="lbl">선글라스 / UV 보호안경 <small>자외선·먼지 차단</small></span></label>
-      </div>
-
-      <div class="chk-group">
         <h3>🔌 전자 · 기타</h3>
         <label class="chk"><input type="checkbox" id="c-powerbank"><span class="lbl">보조배터리 <small>기내 휴대만 (위탁 금지)</small></span></label>
         <label class="chk"><input type="checkbox" id="c-plug"><span class="lbl">일본 돼지코(110V) <small>변환 플러그</small></span></label>
@@ -64,6 +60,33 @@
         <label class="chk"><input type="checkbox" id="c-baggage"><span class="lbl">출국편 수하물 주의<span class="star">★</span><small>이스타편 위탁 미포함 — 기내 규격 확인</small></span></label>
       </div>
 
+    </div>
+
+    <div class="section-label">실시간 환율 계산기</div>
+    <div id="fx" class="fx">
+      <div class="fx-head">
+        <span id="fx-rate">100엔 = … 원</span>
+        <span id="fx-upd" class="off">불러오는 중…</span>
+      </div>
+      <div class="fx-row">
+        <label class="fx-field">
+          <span>엔 (JPY)</span>
+          <input id="fx-jpy" type="number" inputmode="decimal" min="0" placeholder="0">
+        </label>
+        <div class="fx-eq">⇄</div>
+        <label class="fx-field">
+          <span>원 (KRW)</span>
+          <input id="fx-krw" type="number" inputmode="decimal" min="0" placeholder="0">
+        </label>
+      </div>
+      <div class="fx-chips">
+        <button class="fx-chip" type="button" data-jpy="100">100엔</button>
+        <button class="fx-chip" type="button" data-jpy="500">500엔</button>
+        <button class="fx-chip" type="button" data-jpy="1000">1,000엔</button>
+        <button class="fx-chip" type="button" data-jpy="5000">5,000엔</button>
+        <button class="fx-chip" type="button" data-jpy="10000">10,000엔</button>
+        <button id="fx-refresh" class="fx-chip refresh" type="button">↻ 갱신</button>
+      </div>
     </div>
 
     <div class="section-label">돈 · 경비 메모</div>
@@ -101,6 +124,7 @@
   </div>
 
 <script src="prep.js"></script>
+<script src="exchange.js"></script>
 <script src="common.js"></script>
 </body>
 </html>

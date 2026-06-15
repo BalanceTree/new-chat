@@ -3,108 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>도쿄 6/18–21 날씨 (최신)</title>
+<title>도쿄 6/18–21 여행 대시보드</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
   <div class="wrap">
     <nav class="nav">
-      <a href="index.html" class="active">☂ 날씨</a>
+      <a href="index.html" class="active">🏠 홈</a>
+      <a href="weather.html">☂ 날씨</a>
       <a href="travel.html">🚗 이동</a>
       <a href="itinerary.html">🗓️ 일정</a>
       <a href="prep.html">🎒 준비</a>
+      <a href="stay.html">🏨 숙소</a>
     </nav>
 
-    <div class="hero">
-      <span class="updated">갱신: 6/15 기준 예보</span>
-      <div class="eyebrow">TOKYO 東京 · 4-DAY STAY</div>
-      <h1>도쿄 6/18–21<small>장마철 여행</small></h1>
-      <p class="sub">장마(梅雨) 시기로 4일 내내 흐리고 비 가능성이 있어요. 특히 마지막 날(21일·귀국)이 가장 확실한 비, 토요일(20일)은 모델별로 갈려 변동성이 큽니다.</p>
-      <div class="badge">☂ 우산 필수 · 💧 습도 ~75% · 🌫️ 후지산 전망은 기대 X</div>
-      <div class="rainfall" id="rainfall"></div>
-    </div>
-
-    <div class="days">
-      <div class="day wet">
-        <div class="dow">목</div>
-        <div class="date">18</div>
-        <div class="ico">🌧️</div>
-        <div class="hi">24°</div>
-        <div class="lo">최저 20°</div>
-        <div class="rain">비 가능 ~50%</div>
-        <div class="cond">흐림·간헐적 비<br>도착일</div>
-      </div>
-      <div class="day">
-        <div class="dow">금</div>
-        <div class="date">19</div>
-        <div class="ico">⛅</div>
-        <div class="hi">25°</div>
-        <div class="lo">최저 21°</div>
-        <div class="rain low-rain">비 낮음 ~40%</div>
-        <div class="cond">구름 많음<br>4일 중 야외 적기</div>
-      </div>
-      <div class="day wet">
-        <div class="pin">하코네 후보</div>
-        <div class="dow">토</div>
-        <div class="date">20</div>
-        <div class="ico">🌥️</div>
-        <div class="hi">27°</div>
-        <div class="lo">최저 20°</div>
-        <div class="rain">변동 · 재확인</div>
-        <div class="cond">흐림, 비 여부<br>모델별 갈림</div>
-      </div>
-      <div class="day wet heavy">
-        <div class="dow">일</div>
-        <div class="date">21</div>
-        <div class="ico">🌧️</div>
-        <div class="hi">24°</div>
-        <div class="lo">최저 18°</div>
-        <div class="rain hi-rain">비 유력 ~90%</div>
-        <div class="cond">종일 비<br>귀국일</div>
+    <div class="dash-hero">
+      <div class="eyebrow">TOKYO 東京 · 4명 · 3박4일</div>
+      <h1>도쿄 6/18 – 21</h1>
+      <div class="place">🏨 닛포리 · ✈️ ICN ↔ NRT · 🚆 스카이라이너</div>
+      <div class="dday">
+        <div class="num" id="dday-num">D-…</div>
+        <div class="label" id="dday-label">출발까지</div>
+        <div class="clock" id="dday-clock"></div>
       </div>
     </div>
 
-    <div class="insight">
-      <div class="ic">🚆</div>
-      <div>
-        <h3>토요일(20일) = 하코네 결정 포인트</h3>
-        <p>여러 예보를 종합하면 <b>비는 21일에 더 확실</b>하고, 20일은 의외로 갈립니다. 하코네를 갈 거면 토요일이 그나마 승산이 있지만 장마라 변동이 커요. 가더라도 <i>로프웨이·후지산 전망</i>은 기대하지 말고 <i>수국 열차 · 온천 · 미술관</i> 위주로. 출발 2~3일 전 다시 확인하는 게 안전합니다.</p>
-      </div>
-    </div>
+    <div class="grid">
 
-    <div class="section-label">신경 쓰이는 포인트</div>
-    <div class="focus">
-      <div class="fcard rain-c">
-        <div class="ttl">☂ 비 · 우산</div>
-        <div class="big">4일 모두 대비</div>
-        <p>가벼운 우비 + 접이식 우산 + 방수/속건 신발. 비 유력한 18·21일엔 실내 일정을, 비 적은 19일에 야외를 배치하세요.</p>
-      </div>
-      <div class="fcard heat-c">
-        <div class="ttl">💧 더위 · 습도</div>
-        <div class="big">후텁지근</div>
-        <p>습도 70~75%라 24~27°C라도 체감은 더 높아요. 통풍 좋은 옷, 손풍기, 수분 보충. 비 그친 직후가 가장 무덥습니다.</p>
-      </div>
-      <div class="fcard air-c">
-        <div class="ttl">🌫️ 대기질</div>
-        <div class="big">보통~주의</div>
-        <p>비가 잦아 대체로 깨끗한 편이나, 맑게 갠 오후엔 다소 나빠질 수 있어요. 민감하면 마스크 1~2장 휴대.</p>
-      </div>
-    </div>
+      <a class="tile" href="weather.html">
+        <div class="th"><span class="nm">☂ 날씨</span><span class="go">→</span></div>
+        <div class="wmini" id="wmini"></div>
+      </a>
 
-    <div class="note">
-      <b>예보 신뢰도 안내</b> — 18~21일은 아직 며칠 남아 장기 예보 구간이라 출처마다 기온·강수확률이 조금씩 다릅니다(특히 토요일). 위 수치는 여러 예보를 종합한 추정이며, <b>출발 2~3일 전 다시 확인</b>하면 훨씬 정확해져요. 원하시면 그때 최신값으로 업데이트해 드릴게요.
+      <a class="tile" href="itinerary.html">
+        <div class="th"><span class="nm">🗓️ 오늘/다음 일정</span><span class="go">→</span></div>
+        <div class="smini">
+          <div class="now" id="smini-now">다가오는 일정</div>
+          <div class="big" id="smini-title">—</div>
+          <div class="sub" id="smini-sub">—</div>
+        </div>
+      </a>
+
+      <a class="tile wide" href="travel.html">
+        <div class="th"><span class="nm">✈️ 항공 · 이동</span><span class="go">→</span></div>
+        <div class="fmini">
+          <div class="leg"><span class="ic">🛫</span><div class="rt"><b>6/18</b> ICN 07:25 → NRT 09:50 <small>이스타 ZE0605</small></div></div>
+          <div class="leg"><span class="ic">🛬</span><div class="rt"><b>6/21</b> NRT 18:25 → ICN 20:55 <small>진에어 LJ0210</small></div></div>
+          <div class="sky">🚆 나리타 ↔ 닛포리 게이세이 스카이라이너 (예약 완료 · 약 40분)</div>
+        </div>
+      </a>
+
+      <a class="tile" href="prep.html">
+        <div class="th"><span class="nm">💱 환율</span><span class="go">→</span></div>
+        <div class="xmini" id="fx">
+          <div class="rate" id="fx-rate">100엔 = … 원</div>
+          <div class="upd" id="fx-upd">불러오는 중…</div>
+          <div class="row" onclick="event.preventDefault()">
+            <input id="fx-jpy" type="number" inputmode="decimal" min="0" placeholder="엔">
+            <span class="eq">⇄</span>
+            <input id="fx-krw" type="number" inputmode="decimal" min="0" placeholder="원">
+          </div>
+        </div>
+      </a>
+
+      <a class="tile" href="prep.html">
+        <div class="th"><span class="nm">🎒 준비물</span><span class="go">→</span></div>
+        <div class="smini">
+          <div class="big" id="prep-pct">— %</div>
+          <div class="sub" id="prep-sub">체크리스트 진행률</div>
+        </div>
+      </a>
+
     </div>
 
     <div class="foot">
-      자료: weather.com · AccuWeather · holiday-weather · japanhighlights 종합 (2026.06.15 기준)<br>
-      장마철 특성상 실제 기상은 변동될 수 있습니다.
+      날짜·환율은 자동 업데이트됩니다. 각 카드를 누르면 상세 페이지로 이동해요.
     </div>
   </div>
 
-<script src="rain.js"></script>
+<script src="dashboard.js"></script>
 <script src="common.js"></script>
 </body>
 </html>

@@ -1,0 +1,44 @@
+/* stay.css — 숙소 정보 페이지 전용 */
+
+.stay-hero{
+  position:relative;border-radius:22px;overflow:hidden;
+  padding:32px 28px;margin-bottom:18px;
+  background:
+    radial-gradient(120% 120% at 100% 0%, rgba(255,110,180,.5), transparent 55%),
+    linear-gradient(160deg,#3a2156 0%, #241436 70%, #160c24 100%);
+  color:#fff;box-shadow:0 24px 50px -28px rgba(150,60,140,.6);
+  border:1px solid rgba(255,255,255,.1);
+}
+.stay-hero .eyebrow{font-size:12px;letter-spacing:.4em;font-weight:600;opacity:.8;text-transform:uppercase;}
+.stay-hero h1{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;font-size:clamp(28px,6.5vw,42px);line-height:1.05;margin:10px 0 8px;}
+.stay-hero p{font-size:13.5px;opacity:.92;line-height:1.6;max-width:50ch;}
+
+.stay-card{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;
+  backdrop-filter:blur(12px);
+}
+.stay-link{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  text-decoration:none;font-size:14px;font-weight:700;color:#fff;
+  background:linear-gradient(120deg,#ff5a8a,#ff8f5a);
+  padding:14px;border-radius:13px;margin-bottom:18px;
+  box-shadow:0 14px 34px -16px rgba(255,90,138,.8);transition:transform .15s;
+}
+.stay-link:hover{transform:translateY(-2px);}
+
+.stay-rows{display:flex;flex-direction:column;gap:2px;}
+.stay-rows .r{display:flex;gap:12px;padding:12px 0;border-bottom:1px dashed var(--line);}
+.stay-rows .r:last-child{border-bottom:none;}
+.stay-rows .r .k{flex:none;width:78px;font-size:12.5px;font-weight:700;color:var(--muted);}
+.stay-rows .r .v{flex:1;font-size:13.5px;color:var(--ink);line-height:1.5;}
+.stay-rows .r .v.todo{color:var(--amber);font-style:italic;}
+.stay-rows .r .v small{color:var(--muted);font-size:11.5px;margin-left:6px;}
+
+.stay-actions{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;}
+.stay-actions a{
+  flex:1;min-width:130px;text-align:center;text-decoration:none;
+  font-size:12.5px;font-weight:700;color:var(--ink);
+  background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:11px;padding:11px;
+  transition:all .15s;
+}
+.stay-actions a:hover{border-color:var(--sky-mid);background:rgba(79,124,255,.16);}
