@@ -1,4 +1,13 @@
 /* common.js — 모든 페이지 공통 상단 바(카운트다운 + 공유). .wrap 맨 위에 주입 */
+
+/* 카카오톡 인앱 브라우저면 외부(기본) 브라우저로 다시 열기 */
+(function(){
+  const ua = navigator.userAgent.toLowerCase();
+  if(ua.indexOf('kakaotalk') > -1){
+    location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(location.href);
+  }
+})();
+
 (function(){
   const wrap = document.querySelector('.wrap');
   if(!wrap) return;

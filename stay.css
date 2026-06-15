@@ -10,7 +10,7 @@
   border:1px solid rgba(255,255,255,.1);
 }
 .stay-hero .eyebrow{font-size:12px;letter-spacing:.4em;font-weight:600;opacity:.8;text-transform:uppercase;}
-.stay-hero h1{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;font-size:clamp(28px,6.5vw,42px);line-height:1.05;margin:10px 0 8px;}
+.stay-hero h1{font-family:'Pretendard Variable','Pretendard',sans-serif;font-weight:900;font-size:clamp(28px,6.5vw,42px);line-height:1.05;margin:10px 0 8px;}
 .stay-hero p{font-size:13.5px;opacity:.92;line-height:1.6;max-width:50ch;}
 
 .stay-card{
@@ -25,6 +25,15 @@
   box-shadow:0 14px 34px -16px rgba(255,90,138,.8);transition:transform .15s;
 }
 .stay-link:hover{transform:translateY(-2px);}
+
+.stay-dir{
+  width:100%;display:block;cursor:pointer;font-family:inherit;
+  font-size:14px;font-weight:700;color:#fff;
+  background:linear-gradient(120deg,#4f7cff,#43d9a3);
+  border:none;padding:14px;border-radius:13px;margin-top:18px;
+  box-shadow:0 14px 34px -16px rgba(79,124,255,.8);transition:transform .15s;
+}
+.stay-dir:hover{transform:translateY(-2px);}
 
 .stay-rows{display:flex;flex-direction:column;gap:2px;}
 .stay-rows .r{display:flex;gap:12px;padding:12px 0;border-bottom:1px dashed var(--line);}

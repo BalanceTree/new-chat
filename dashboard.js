@@ -115,7 +115,9 @@
   function fromJpy(){ const v=parseFloat(jpy.value); krw.value = v>=0 ? Math.round(v*rate) : ''; }
   function fromKrw(){ const v=parseFloat(krw.value); jpy.value = v>=0 ? Math.round(v/rate) : ''; }
   if(jpy && krw){
-    ['click','keydown','input'].forEach(ev=>{ jpy.addEventListener(ev,e=>e.stopPropagation()); krw.addEventListener(ev,e=>e.stopPropagation()); });
+    // 입력칸을 누르면 타일 링크로 이동하지 않도록 (기본 이동 취소)
+    const fxTile = jpy.closest('.tile');
+    if(fxTile) fxTile.addEventListener('click', e=>{ if(e.target.closest('input')) e.preventDefault(); });
     jpy.addEventListener('input', fromJpy);
     krw.addEventListener('input', fromKrw);
     jpy.value = 1000;

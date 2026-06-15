@@ -9,7 +9,7 @@
   color:#fff;box-shadow:0 24px 50px -28px rgba(28,39,53,.6);
 }
 .itin-hero .eyebrow{font-size:12px;letter-spacing:.4em;font-weight:500;opacity:.8;text-transform:uppercase;}
-.itin-hero h1{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;font-size:clamp(28px,6.5vw,42px);line-height:1.05;margin:10px 0 8px;}
+.itin-hero h1{font-family:'Pretendard Variable','Pretendard',sans-serif;font-weight:900;font-size:clamp(28px,6.5vw,42px);line-height:1.05;margin:10px 0 8px;}
 .itin-hero p{font-size:13.5px;opacity:.9;line-height:1.6;max-width:50ch;}
 .itin-hero .ctrls{margin-top:16px;display:flex;gap:8px;}
 .itin-hero .ctrls button{
@@ -34,10 +34,10 @@
 .acc-date{
   flex:none;width:54px;text-align:center;
 }
-.acc-date .d{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;font-size:26px;line-height:1;color:var(--ink);}
+.acc-date .d{font-family:'Pretendard Variable','Pretendard',sans-serif;font-weight:900;font-size:26px;line-height:1;color:var(--ink);}
 .acc-date .dow{font-size:11px;font-weight:700;color:var(--muted);margin-top:3px;letter-spacing:.06em;}
 .acc-main{flex:1;min-width:0;}
-.acc-title{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:16px;color:var(--ink);}
+.acc-title{font-family:'Pretendard Variable','Pretendard',sans-serif;font-weight:700;font-size:16px;color:var(--ink);}
 .acc-sub{font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.4;}
 .acc-tag{
   display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.03em;
@@ -60,7 +60,7 @@
 .sched{display:flex;flex-direction:column;gap:2px;}
 .slot{display:flex;gap:14px;padding:10px 0;border-bottom:1px dashed var(--line);}
 .slot:last-child{border-bottom:none;}
-.slot .t{flex:none;width:60px;font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:13px;color:var(--sky-mid);padding-top:1px;}
+.slot .t{flex:none;width:60px;font-family:'Pretendard Variable','Pretendard',sans-serif;font-weight:700;font-size:13px;color:var(--sky-mid);padding-top:1px;}
 .slot .c{flex:1;}
 .slot .c .h{font-size:13.5px;font-weight:700;color:var(--ink);}
 .slot .c .m{font-size:12.5px;color:var(--muted);margin-top:2px;line-height:1.5;}
