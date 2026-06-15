@@ -30,6 +30,7 @@
         <div class="label" id="dday-label">출발까지</div>
         <div class="clock" id="dday-clock"></div>
       </div>
+      <div id="hero-trip" style="display:none"></div>
     </div>
 
     <div class="grid">
@@ -48,7 +49,13 @@
         </div>
       </a>
 
-      <a class="tile wide" href="travel.html">
+      <!-- 여행 중 타임라인 (JS로 show) -->
+      <div class="tile wide trip-only" id="today-tl" style="display:none">
+        <div class="th"><span class="nm">⏱ 오늘 타임라인</span><a class="go" href="travel.html">→</a></div>
+        <div id="tl-content"></div>
+      </div>
+
+      <a class="tile wide" href="travel.html" id="flight-tile">
         <div class="th"><span class="nm">✈️ 항공 · 이동</span><span class="go">→</span></div>
         <div class="fmini">
           <div class="leg"><span class="ic">🛫</span><div class="rt"><b>6/18</b> ICN 07:25 → NRT 09:50 <small>이스타 ZE0605</small></div></div>
@@ -70,7 +77,7 @@
         </div>
       </a>
 
-      <a class="tile" href="prep.html">
+      <a class="tile" href="prep.html" id="prep-tile">
         <div class="th"><span class="nm">🎒 준비물</span><span class="go">→</span></div>
         <div class="smini">
           <div class="big" id="prep-pct">— %</div>
