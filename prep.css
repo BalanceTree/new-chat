@@ -68,6 +68,23 @@
 .fx-chip:hover{border-color:var(--sky-mid);background:rgba(79,124,255,.16);}
 .fx-chip.refresh{margin-left:auto;color:var(--good);border-color:rgba(67,217,163,.3);}
 
+/* 개인 메모 */
+.memo-box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;backdrop-filter:blur(12px);}
+.memo-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:8px;}
+.memo-head span{font-size:12px;color:var(--muted);}
+.memo-head button{font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;background:rgba(255,100,100,.12);border:1px solid rgba(255,100,100,.25);color:#ff9d9d;padding:5px 11px;border-radius:20px;transition:all .15s;}
+.memo-head button:hover{background:rgba(255,100,100,.22);}
+#memo-text{
+  width:100%;font-family:'Pretendard Variable','Pretendard',sans-serif;
+  font-size:14px;line-height:1.7;color:var(--ink);
+  background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:11px;
+  padding:12px 14px;outline:none;resize:vertical;
+  transition:border-color .15s;
+}
+#memo-text:focus{border-color:var(--sky-mid);}
+#memo-text::placeholder{color:var(--muted);opacity:.6;}
+.memo-saved{font-size:11px;color:var(--good);margin-top:7px;min-height:16px;transition:opacity .3s;}
+
 .camera-group {
   border-top: 3px solid rgba(255,184,77,.6);
 }
