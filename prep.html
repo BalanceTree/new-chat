@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>도쿄 6/18–21 준비물 · 경비</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="prep.css">
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <a href="index.html">☂ 날씨</a>
+      <a href="travel.html">🚗 이동</a>
+      <a href="itinerary.html">🗓️ 일정</a>
+      <a href="prep.html" class="active">🎒 준비</a>
+    </nav>
+
+    <div class="prep-hero">
+      <div class="eyebrow">TOKYO 東京 · CHECKLIST</div>
+      <h1>준비물 & 경비</h1>
+      <p>체크는 이 기기에 자동 저장돼요. 각자 자기 폰에서 챙기면서 눌러보세요. (★ = 이번 여행 특히 중요)</p>
+      <div class="progress">
+        <div class="pbar"><i></i></div>
+        <div class="ptxt">0 / 0 완료</div>
+      </div>
+      <button id="resetChecks" class="reset">↺ 체크 초기화</button>
+    </div>
+
+    <div class="section-label">준비물 체크리스트</div>
+    <div class="checks">
+
+      <div class="chk-group">
+        <h3>🛂 필수 · 서류</h3>
+        <label class="chk"><input type="checkbox" id="c-passport"><span class="lbl">여권 <small>유효기간 6개월 이상 확인</small></span></label>
+        <label class="chk"><input type="checkbox" id="c-ticket"><span class="lbl">항공권 / 예약번호 <small>출 FYT9KN · 귀 F8APXA</small></span></label>
+        <label class="chk"><input type="checkbox" id="c-visitjapan"><span class="lbl">Visit Japan Web 등록<span class="star">★</span><small>입국·세관 QR 미리 등록하면 빠름</small></span></label>
+        <label class="chk"><input type="checkbox" id="c-card"><span class="lbl">해외결제 카드 <small>트래블월렛/트래블로그 등</small></span></label>
+        <label class="chk"><input type="checkbox" id="c-cash"><span class="lbl">엔화 현금 약간 <small>소액 현금 쓰는 곳 대비</small></span></label>
+      </div>
+
+      <div class="chk-group">
+        <h3>☔ 날씨 · 장마 대비</h3>
+        <label class="chk"><input type="checkbox" id="c-umbrella"><span class="lbl">접이식 우산 / 우비<span class="star">★</span><small>4일 내내 비 가능</small></span></label>
+        <label class="chk"><input type="checkbox" id="c-shoes"><span class="lbl">방수·속건 신발 <small>젖어도 빨리 마르는 걸로</small></span></label>
+        <label class="chk"><input type="checkbox" id="c-fan"><span class="lbl">손풍기 <small>습도 75% 후텁지근</small></span></label>
+      </div>
+
+      <div class="chk-group">
+        <h3>👁️ 성은님 눈 케어</h3>
+        <label class="chk"><input type="checkbox" id="c-eyedrop"><span class="lbl">일회용 인공눈물<span class="star">★</span><small>기내·현지 수시 점안</small></span></label>
+        <label class="chk"><input type="checkbox" id="c-sunglass"><span class="lbl">선글라스 / UV 보호안경 <small>자외선·먼지 차단</small></span></label>
+      </div>
+
+      <div class="chk-group">
+        <h3>🔌 전자 · 기타</h3>
+        <label class="chk"><input type="checkbox" id="c-powerbank"><span class="lbl">보조배터리 <small>기내 휴대만 (위탁 금지)</small></span></label>
+        <label class="chk"><input type="checkbox" id="c-plug"><span class="lbl">일본 돼지코(110V) <small>변환 플러그</small></span></label>
+        <label class="chk"><input type="checkbox" id="c-esim"><span class="lbl">eSIM / 포켓와이파이 <small>현지 데이터</small></span></label>
+        <label class="chk"><input type="checkbox" id="c-meds"><span class="lbl">상비약 <small>두통·소화·밴드 등</small></span></label>
+        <label class="chk"><input type="checkbox" id="c-baggage"><span class="lbl">출국편 수하물 주의<span class="star">★</span><small>이스타편 위탁 미포함 — 기내 규격 확인</small></span></label>
+      </div>
+
+    </div>
+
+    <div class="section-label">돈 · 경비 메모</div>
+    <div class="money">
+      <div class="mcard">
+        <div class="ttl">💴 결제 / 환전</div>
+        <div class="big">카드 + 소액 현금</div>
+        <p>대부분 카드로 해결되지만 소규모 식당·신사 등 현금만 받는 곳이 있어 소액 엔화는 챙기는 게 좋아요.</p>
+        <ul>
+          <li><span>주력</span><span>트래블월렛/로그 카드</span></li>
+          <li><span>현금</span><span>1인 1~2만엔 권장</span></li>
+          <li><span>환율</span><span>출발 전 확인 후 갱신</span></li>
+        </ul>
+      </div>
+      <div class="mcard">
+        <div class="ttl">🧮 더치페이</div>
+        <div class="big">공동 지출 정산</div>
+        <p>공동 경비(택시·숙소·공동 식사)는 한 명이 결제 후 정산 앱으로 나누면 편해요.</p>
+        <ul>
+          <li><span>추천 앱</span><span>토스 정산 / 카카오 더치</span></li>
+          <li><span>공동비</span><span>영수증 사진 모으기</span></li>
+          <li><span>예상 경비</span><span>확정 후 업데이트</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note">
+      <b>예상 경비는 아직 미정</b> — 숙소·교통·식비가 정해지면 1인 대략 견적을 여기에 채워둘게요. 구글 드라이브 시트에서 항목별로 모아주세요.
+    </div>
+
+    <div class="foot">
+      체크 상태는 보는 기기에 저장됩니다 (서로 공유되진 않아요).<br>
+      각자 자기 폰에서 챙기며 체크하세요.
+    </div>
+  </div>
+
+<script src="prep.js"></script>
+<script src="common.js"></script>
+</body>
+</html>
