@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>성은 케어 👁 | 도쿄 trip</title>
+<title>크루 역할표 🫂 | 도쿄 trip</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendard-dynamic-subset.min.css">
 <link rel="stylesheet" href="style.css">
@@ -18,87 +18,114 @@
       <a href="itinerary.html">🗓️ 일정</a>
       <a href="prep.html">🎒 준비</a>
       <a href="stay.html">🏨 숙소</a>
-      <a href="care.html" class="active">👁 케어</a>
+      <a href="care.html" class="active">🫂 크루</a>
     </nav>
 
     <div class="care-hero">
       <div class="hero-glow"></div>
-      <div class="eyebrow">POST-OP EYE CARE · 성은 × 진혁 공동 책임</div>
-      <div class="hero-eye">👁</div>
-      <h1>성은 눈 지키기 프로젝트</h1>
-      <p class="sub">눈 수술하고 여행 온 거 대단한 건데, 진혁이가 있으니까 든든하죠? 진혁아, 네 임무다.</p>
+      <div class="eyebrow">TOKYO CREW · 역할 배분표</div>
+      <div class="hero-eye">🫂</div>
+      <h1>우리 넷의 역할</h1>
+      <p class="sub">각자 포지션 확인하고 딴소리 없기. 이미 다 정해져 있음.</p>
       <div class="hero-tags">
-        <span>✈️ 기내</span>
-        <span>🚗 이동</span>
-        <span>🌆 현지</span>
-        <span>💑 진혁 담당</span>
+        <span>🚗 윤여찬</span>
+        <span>👁 곽성은</span>
+        <span>💑 장진혁</span>
+        <span>📸 한창섭</span>
       </div>
     </div>
 
-    <!-- 인공눈물 타이머 -->
-    <div class="section-label">⏱ 기내 인공눈물 타이머</div>
-    <div class="timer-card">
-      <div class="timer-desc">기내 습도 15% 미만으로 엄청 건조해요. <b>30분~1시간</b> 간격으로 넣어야 하는데, 진혁이가 타이머 켜주는 거 잊으면 안 됨</div>
-      <div class="timer-display" id="timer-display">30:00</div>
-      <div class="timer-btns">
-        <button class="tbtn" id="btn-30" data-min="30">30분</button>
-        <button class="tbtn" id="btn-60" data-min="60">1시간</button>
-        <button class="tbtn reset" id="btn-reset">↺ 리셋</button>
+    <!-- 윤여찬 -->
+    <div class="member-card yc">
+      <div class="member-header">
+        <div class="member-avatar">🚗</div>
+        <div class="member-info">
+          <div class="member-name">윤여찬</div>
+          <div class="member-role">드라이버 · 기획자 · 통역사 · 사실상 가이드</div>
+        </div>
+        <div class="member-badge">갑</div>
       </div>
-      <div class="timer-status" id="timer-status">타이머를 눌러 시작하세요</div>
+      <div class="member-desc">이 여행의 모든 걸 기획하고 새벽에 사람들 집 앞에서 주워다가 공항까지 데려다주는 사람. 일본어도 되고 일정도 짰고 심지어 앱도 만들었음.</div>
+      <div class="duty-list">
+        <div class="duty"><span class="duty-ic">🚗</span><div><b>새벽 올픽업 드라이버</b><small>03:55 인계동 출발 → 전원 집 앞 수거</small></div></div>
+        <div class="duty"><span class="duty-ic">🗓</span><div><b>일정 총괄 기획</b><small>이 앱 만든 것도 본인</small></div></div>
+        <div class="duty"><span class="duty-ic">🗣</span><div><b>일본어 소통 전담</b><small>주문, 길 묻기, 긴급상황 대응</small></div></div>
+        <div class="duty"><span class="duty-ic">🅿️</span><div><b>인천공항 장기주차 · 귀국 드랍</b><small>T1 주차 → T2 픽업 역순 드랍</small></div></div>
+      </div>
     </div>
 
-    <!-- 체크리스트 -->
-    <div class="section-label">✅ 케어 체크리스트</div>
-    <div class="care-checks">
-
-      <div class="care-group">
-        <div class="group-tag car">🚗 이동 중 (차량) — 진혁 확인</div>
-        <label class="care-chk"><input type="checkbox" id="cc-ac"><span>에어컨 송풍구 방향 <b>아래로</b> 조절<small>진혁아, 네 옆에 타니까 네가 직접 확인해</small></span></label>
-        <label class="care-chk"><input type="checkbox" id="cc-eyedrop-car"><span>탑승 전 인공눈물 1회 투여<small>성은이 깜빡하면 진혁이 챙겨줘야 함</small></span></label>
+    <!-- 곽성은 -->
+    <div class="member-card se">
+      <div class="member-header">
+        <div class="member-avatar">👁</div>
+        <div class="member-info">
+          <div class="member-name">곽성은</div>
+          <div class="member-role">정찰대장 · 눈 수술 환자 · 진혁이 여친</div>
+        </div>
+        <div class="member-badge se-badge">VIP</div>
+      </div>
+      <div class="member-desc">눈은 아프지만 발은 멀쩡해서 잘 돌아다님. 이번 여행에서 제일 케어받는 포지션. 진혁이 있으니까 뭐 걱정이야.</div>
+      <div class="duty-list">
+        <div class="duty"><span class="duty-ic">👁</span><div><b>인공눈물 제때 넣기</b><small>30분~1시간 간격 · 진혁한테 시켜도 됨</small></div></div>
+        <div class="duty"><span class="duty-ic">🕶</span><div><b>야외 선글라스 착용</b><small>UV 차단 필수 · 깜빡하면 진혁이 잔소리함</small></div></div>
+        <div class="duty"><span class="duty-ic">💨</span><div><b>에어컨 바람 주의</b><small>차량·기내·숙소 송풍구 방향 확인</small></div></div>
+        <div class="duty"><span class="duty-ic">🏃</span><div><b>정찰대 활동 (한창섭이랑)</b><small>잘 돌아다니는 게 특기 → 앞장서기</small></div></div>
       </div>
 
-      <div class="care-group">
-        <div class="group-tag flight">✈️ 기내 — 둘이 붙어 앉을 테니 진혁 적극 활용</div>
-        <label class="care-chk"><input type="checkbox" id="cc-ac-flight"><span>기내 에어컨 송풍구 방향 확인 · 아래로<small>성은 자리 + 진혁 자리 둘 다 체크</small></span></label>
-        <label class="care-chk"><input type="checkbox" id="cc-eyedrop-1"><span>인공눈물 — 이륙 후 30분 이내 1회<small>진혁아, 타이머 켜줘라</small></span></label>
-        <label class="care-chk"><input type="checkbox" id="cc-eyedrop-2"><span>인공눈물 — 중간 1회<small>위 타이머 참고 · 성은이 자다가 깨워서라도</small></span></label>
-        <label class="care-chk"><input type="checkbox" id="cc-eyedrop-3"><span>인공눈물 — 착륙 전 1회<small>진혁아 여기까지 잘 챙겼으면 칭찬받아도 됨</small></span></label>
+      <!-- 인공눈물 타이머 -->
+      <div class="mini-timer">
+        <div class="mini-timer-title">⏱ 기내 인공눈물 타이머 (진혁 전용)</div>
+        <div class="timer-display" id="timer-display">30:00</div>
+        <div class="timer-btns">
+          <button class="tbtn" id="btn-30" data-min="30">30분</button>
+          <button class="tbtn" id="btn-60" data-min="60">1시간</button>
+          <button class="tbtn reset" id="btn-reset">↺ 리셋</button>
+        </div>
+        <div class="timer-status" id="timer-status">진혁아, 이거 눌러</div>
       </div>
-
-      <div class="care-group">
-        <div class="group-tag local">🌆 도쿄 현지</div>
-        <label class="care-chk"><input type="checkbox" id="cc-sunglass"><span>야외 활동 시 <b>선글라스 / UV 차단 안경</b> 착용<small>안 쓰면 진혁이 잔소리 해도 됨</small></span></label>
-        <label class="care-chk"><input type="checkbox" id="cc-eyedrop-local"><span>인공눈물 휴대 — 하루 4~6회 수시 투여<small>진혁 가방에도 1개 여분 넣어두기</small></span></label>
-        <label class="care-chk"><input type="checkbox" id="cc-ac-local"><span>숙소·실내 에어컨 바람 방향 항상 체크<small>닛포리 체크인 직후 진혁이 먼저 확인</small></span></label>
-        <label class="care-chk"><input type="checkbox" id="cc-rub"><span>눈 비비거나 만지지 않기<small>이건 진혁도 막을 수 있음. 손 탁 치면 됨</small></span></label>
-      </div>
-
-      <div class="care-group">
-        <div class="group-tag return">🛬 귀국 이동</div>
-        <label class="care-chk"><input type="checkbox" id="cc-eyedrop-return"><span>귀국 기내 동일하게 인공눈물 챙기기<small>진혁 임무 마지막 스테이지</small></span></label>
-        <label class="care-chk"><input type="checkbox" id="cc-followup"><span>귀국 후 병원 추적 관찰 일정 확인<small>여행 잘 다녀왔다고 의사한테도 자랑해도 됨</small></span></label>
-      </div>
-
     </div>
 
-    <div class="care-note">
-      <b>💊 인공눈물 팁 (진혁 필독)</b> — 일회용 앰플 기준 1개당 1회 사용이 원칙. 개봉 후 남은 건 버려야 해. 비행 왕복 + 현지 4일치 합치면 최소 20개는 챙겨와야 하고, 성은 가방에만 넣지 말고 진혁 가방에도 분산해서 넣어. 잃어버리면 진혁 책임임.
+    <!-- 장진혁 -->
+    <div class="member-card jh">
+      <div class="member-header">
+        <div class="member-avatar">💑</div>
+        <div class="member-info">
+          <div class="member-name">장진혁</div>
+          <div class="member-role">성은이 남친 · 성은 케어 담당 · 순한 맛</div>
+        </div>
+        <div class="member-badge jh-badge">을</div>
+      </div>
+      <div class="member-desc">말은 잘 들어서 역할 맡기기 좋음. 걷기 힘들다고 했지만 그게 면죄부는 아님. 성은이 케어가 이번 여행 제1임무.</div>
+      <div class="duty-list">
+        <div class="duty"><span class="duty-ic">💧</span><div><b>성은 인공눈물 타이머 관리</b><small>위 타이머 켜두는 거 잊으면 안 됨</small></div></div>
+        <div class="duty"><span class="duty-ic">💨</span><div><b>탑승 때마다 에어컨 송풍구 방향 확인</b><small>차량, 기내, 숙소 전부 · 귀찮아도 해야 함</small></div></div>
+        <div class="duty"><span class="duty-ic">🕶</span><div><b>야외 나갈 때 성은 선글라스 챙기기</b><small>"선글라스 꼈어?" 한 마디면 됨</small></div></div>
+        <div class="duty"><span class="duty-ic">🦵</span><div><b>본인 페이스 관리</b><small>힘들면 말하기 · 쉬어가는 루트 미리 파악</small></div></div>
+        <div class="duty"><span class="duty-ic">🛗</span><div><b>지하철 엘리베이터 경로 우선 이용</b><small>도쿄 지철 계단 많음 · 야마노테선 엘베 위치 파악</small></div></div>
+      </div>
     </div>
 
-    <!-- 장진혁 케어 -->
-    <div class="section-label">🦵 장진혁 워킹 케어</div>
-    <div class="care-group jin">
-      <div class="group-tag jin-tag">🦵 장진혁 전용</div>
-      <label class="care-chk"><input type="checkbox" id="jc-pace"><span>무리한 보행 일정 사전 조율<small>하루 이동 거리 미리 체크 · 중간 카페/벤치 휴식 포인트 확보</small></span></label>
-      <label class="care-chk"><input type="checkbox" id="jc-shoes"><span>쿠션 좋은 신발 착용 확인<small>젖어도 되는 신발 + 깔창 챙기기 권장</small></span></label>
-      <label class="care-chk"><input type="checkbox" id="jc-rest"><span>30분~1시간 보행 후 휴식 체크<small>말은 잘 들으니 페이스 조절 요청하면 OK</small></span></label>
-      <label class="care-chk"><input type="checkbox" id="jc-transport"><span>지하철 이동 시 엘리베이터 경로 우선 확인<small>도쿄 지하철 계단 많음 — 야마노테선·게이세이선 엘리베이터 위치 미리 파악</small></span></label>
-      <label class="care-chk"><input type="checkbox" id="jc-bag"><span>무거운 짐 최소화 — 숙소 보관 적극 활용<small>닛포리 숙소에 짐 두고 가볍게 이동</small></span></label>
+    <!-- 한창섭 -->
+    <div class="member-card cs">
+      <div class="member-header">
+        <div class="member-avatar">📸</div>
+        <div class="member-info">
+          <div class="member-name">한창섭</div>
+          <div class="member-role">공식 사진작가 · 정찰대 · 잘 돌아다님</div>
+        </div>
+        <div class="member-badge cs-badge">PD</div>
+      </div>
+      <div class="member-desc">사진 담당이니까 카메라 챙기는 건 본인 책임. 잘 돌아다니는 게 특기라 성은이랑 정찰팀. 찍다가 일행 잃어버리면 안 됨.</div>
+      <div class="duty-list">
+        <div class="duty"><span class="duty-ic">📷</span><div><b>공식 여행 사진 촬영 담당</b><small>추억 남기는 게 임무 · 귀찮아도 찍어야 함</small></div></div>
+        <div class="duty"><span class="duty-ic">🌧</span><div><b>장마철 카메라 방우 대책</b><small>우비 커버 필수 · 습기 제거제 가방에 챙기기</small></div></div>
+        <div class="duty"><span class="duty-ic">🔋</span><div><b>배터리·SD카드 여분 관리</b><small>4일치 충분히 · <a href="prep.html">준비물 페이지</a>에서 체크</small></div></div>
+        <div class="duty"><span class="duty-ic">🏃</span><div><b>성은이랑 정찰 앞장서기</b><small>진혁이 힘드니까 둘이 먼저 가서 확인하고 오기</small></div></div>
+      </div>
     </div>
 
     <div class="foot">
-      체크 상태는 이 기기에 저장됩니다.<br>성은, 진혁이 있으니까 든든하죠? 진혁아 수고해 🫡
+      이의 있으면 단톡방에서 ㅋ
     </div>
   </div>
 
