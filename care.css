@@ -33,10 +33,20 @@
   margin-bottom: 12px;
   border-left: 4px solid var(--line);
 }
-.member-card.yc { border-left-color: #4f7cff; }
-.member-card.se { border-left-color: #ff78b4; }
-.member-card.jh { border-left-color: var(--amber); }
-.member-card.cs { border-left-color: var(--good); }
+.member-card.yc { border-left-color: #4f7cff; background: linear-gradient(135deg, rgba(79,124,255,.09) 0%, var(--card) 60%); }
+.member-card.se { border-left-color: #ff78b4; background: linear-gradient(135deg, rgba(255,120,180,.09) 0%, var(--card) 60%); }
+.member-card.jh { border-left-color: var(--amber); background: linear-gradient(135deg, rgba(255,184,77,.09) 0%, var(--card) 60%); }
+.member-card.cs { border-left-color: var(--good); background: linear-gradient(135deg, rgba(67,217,163,.09) 0%, var(--card) 60%); }
+
+.member-card.yc .member-name { color: #7fa8ff; }
+.member-card.se .member-name { color: #ffb3d9; }
+.member-card.jh .member-name { color: var(--amber); }
+.member-card.cs .member-name { color: var(--good); }
+
+.member-card.yc .member-avatar { filter: drop-shadow(0 2px 10px rgba(79,124,255,.6)); }
+.member-card.se .member-avatar { filter: drop-shadow(0 2px 10px rgba(255,120,180,.6)); }
+.member-card.jh .member-avatar { filter: drop-shadow(0 2px 10px rgba(255,184,77,.6)); }
+.member-card.cs .member-avatar { filter: drop-shadow(0 2px 10px rgba(67,217,163,.6)); }
 
 .member-header { display:flex;align-items:center;gap:14px;margin-bottom:12px; }
 .member-avatar { font-size:32px;line-height:1;flex:none;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4)); }
@@ -95,6 +105,27 @@
 .timer-status.running { color:#ffb3d9;font-weight:700; }
 .timer-status.done { color:#ff7d6b;font-weight:800;animation:blink .6s step-end infinite; }
 @keyframes blink { 50%{opacity:0;} }
+
+/* 한창섭 카메라 체크리스트 */
+.cs-checklist {
+  margin-top: 18px; padding: 16px; border-radius: 14px;
+  background: linear-gradient(135deg, rgba(67,217,163,.08), rgba(67,217,163,.03));
+  border: 1px solid rgba(67,217,163,.25);
+}
+.cs-chk-title { font-size:13px;font-weight:800;color:var(--good);margin-bottom:14px;letter-spacing:.02em; }
+.cs-chk-group { margin-bottom:14px; }
+.cs-chk-group:last-child { margin-bottom:0; }
+.cs-chk-head { font-size:12px;font-weight:700;color:rgba(67,217,163,.7);margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid rgba(67,217,163,.15); }
+.cs-chk {
+  display:flex;align-items:flex-start;gap:10px;
+  padding:7px 0;border-bottom:1px dashed rgba(255,255,255,.06);cursor:pointer;
+}
+.cs-chk:last-child { border-bottom:none; }
+.cs-chk input[type="checkbox"] { margin-top:2px;flex:none;accent-color:var(--good); }
+.cs-chk span { font-size:13px;color:rgba(255,255,255,.85);line-height:1.4; }
+.cs-chk span small { display:block;font-size:11.5px;color:var(--muted);margin-top:1px; }
+.cs-chk span .star-txt { color:rgba(67,217,163,.8);font-weight:700; }
+.cs-chk input:checked + span { color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(67,217,163,.4); }
 
 @media(max-width:560px){
   .member-header { gap:10px; }
