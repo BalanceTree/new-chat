@@ -306,7 +306,7 @@
     const today=new Date(), past=new Date(today-15*86400000);
     Promise.all([
       fetch('https://open.er-api.com/v6/latest/JPY').then(r=>r.json()).catch(()=>null),
-      fetch('https://api.frankfurter.app/'+fmtDate(past)+'..'+fmtDate(today)+'?from=JPY&to=KRW').then(r=>r.json()).catch(()=>null)
+      fetch('https://api.frankfurter.dev/v1/'+fmtDate(past)+'..'+fmtDate(today)+'?base=JPY&symbols=KRW').then(r=>r.json()).catch(()=>null)
     ]).then(([liveD,histD])=>{
       if(liveD?.rates?.KRW){ rate=liveD.rates.KRW; live=true; }
       show(); fromJpy();
