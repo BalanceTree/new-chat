@@ -279,26 +279,128 @@
 
   renderFx();
 
-  /* ── 공통: 환율 ── */
+  /* ── 공통: 환율 + 차트 ── */
   function renderFx(){
     const rateEl=document.getElementById('fx-rate'), updEl=document.getElementById('fx-upd');
+    const chartEl=document.getElementById('fx-chart');
     const jpyEl=document.getElementById('fx-jpy'), krwEl=document.getElementById('fx-krw');
     let rate=9.1, live=false;
     const fmt=n=>isFinite(n)?Math.round(n).toLocaleString('ko-KR'):'';
-    function show(){ if(rateEl) rateEl.textContent='100엔 = '+fmt(rate*100)+'원'; if(updEl) updEl.textContent=live?'실시간 환율':'오프라인 추정값'; }
+    const fmtDate=d=>d.toISOString().slice(0,10);
+
+    function show(){
+      if(rateEl) rateEl.textContent='100엔 = '+fmt(rate*100)+'원';
+      if(updEl) updEl.textContent=live?'실시간':'오프라인';
+    }
     function fromJpy(){ const v=parseFloat(jpyEl?.value); if(krwEl&&v>=0) krwEl.value=Math.round(v*rate); }
     function fromKrw(){ const v=parseFloat(krwEl?.value); if(jpyEl&&v>=0) jpyEl.value=Math.round(v/rate); }
+
     if(jpyEl&&krwEl){
       const fxTile=jpyEl.closest('.tile');
       if(fxTile) fxTile.addEventListener('click',e=>{ if(e.target.closest('input')) e.preventDefault(); });
       jpyEl.addEventListener('input',fromJpy); krwEl.addEventListener('input',fromKrw);
       jpyEl.value=1000;
-      fetch('https://open.er-api.com/v6/latest/JPY').then(r=>r.json()).then(d=>{
-        if(d?.rates?.KRW){ rate=d.rates.KRW; live=true; }
-        show(); fromJpy();
-      }).catch(()=>{ show(); fromJpy(); });
       show(); fromJpy();
     }
+
+    const today=new Date(), past=new Date(today-15*86400000);
+    Promise.all([
+      fetch('https://open.er-api.com/v6/latest/JPY').then(r=>r.json()).catch(()=>null),
+      fetch('https://api.frankfurter.app/'+fmtDate(past)+'..'+fmtDate(today)+'?from=JPY&to=KRW').then(r=>r.json()).catch(()=>null)
+    ]).then(([liveD,histD])=>{
+      if(liveD?.rates?.KRW){ rate=liveD.rates.KRW; live=true; }
+      show(); fromJpy();
+
+      let pts=[];
+      if(histD?.rates){
+        pts=Object.entries(histD.rates)
+          .sort(([a],[b])=>a.localeCompare(b))
+          .map(([date,r])=>({ date, rate:(r.KRW||0)*100 }));
+      }
+      if(live && rate){
+        const ts=fmtDate(today);
+        if(pts.length && pts[pts.length-1].date===ts) pts[pts.length-1].rate=rate*100;
+        else pts.push({ date:ts, rate:rate*100 });
+      }
+      if(chartEl && pts.length>=2) drawFxChart(pts,chartEl);
+    });
+  }
+
+  function drawFxChart(points,el){
+    const W=260,H=68;
+    const vals=points.map(p=>p.rate), n=vals.length;
+    const minV=Math.min(...vals), maxV=Math.max(...vals);
+    const rng=maxV-minV||0.5;
+    const isUp=vals[n-1]>=vals[0];
+    const color=isUp?'#43d9a3':'#ff7070';
+    const gid='fg'+Math.random().toString(36).slice(2,7);
+
+    function px(i){ return (i/(n-1))*W; }
+    function py(v){ return H-6-((v-minV)/rng)*(H-14); }
+
+    let line=`M${px(0).toFixed(1)},${py(vals[0]).toFixed(1)}`;
+    for(let i=1;i<n;i++){
+      const x0=px(i-1),y0=py(vals[i-1]),x1=px(i),y1=py(vals[i]),cx=(x0+x1)/2;
+      line+=` C${cx.toFixed(1)},${y0.toFixed(1)} ${cx.toFixed(1)},${y1.toFixed(1)} ${x1.toFixed(1)},${y1.toFixed(1)}`;
+    }
+    const fill=line+` L${px(n-1).toFixed(1)},${H} L0,${H} Z`;
+    const pct=(vals[n-1]-vals[0])/vals[0]*100;
+    const pctStr=(pct>=0?'+':'')+pct.toFixed(2)+'%';
+    const endX=px(n-1).toFixed(1), endY=py(vals[n-1]).toFixed(1);
+
+    el.innerHTML=`
+      <div class="fx-meta">
+        <span class="fx-period">${n}거래일</span>
+        <span class="fx-chg ${isUp?'up':'dn'}">${pctStr}</span>
+      </div>
+      <div class="fx-svg-wrap">
+        <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" class="fx-svg" id="fx-svg-el">
+          <defs>
+            <linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="${color}" stop-opacity="0.28"/>
+              <stop offset="90%" stop-color="${color}" stop-opacity="0.01"/>
+            </linearGradient>
+          </defs>
+          <path d="${fill}" fill="url(#${gid})"/>
+          <path d="${line}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="${endX}" cy="${endY}" r="3.5" fill="${color}" stroke="var(--night)" stroke-width="1.8"/>
+        </svg>
+      </div>`;
+
+    /* 호버/터치 → 날짜·값 툴팁 */
+    const svg=el.querySelector('.fx-svg');
+    const metaEl=el.querySelector('.fx-meta');
+    let hLine=null, origMeta=metaEl.innerHTML;
+
+    function onMove(e){
+      const r=svg.getBoundingClientRect();
+      const cx=e.touches?e.touches[0].clientX:e.clientX;
+      const ratio=Math.max(0,Math.min(1,(cx-r.left)/r.width));
+      const idx=Math.round(ratio*(n-1));
+      const pt=points[idx], v=vals[idx];
+      /* 수직선 */
+      if(!hLine){
+        hLine=document.createElementNS('http://www.w3.org/2000/svg','line');
+        hLine.setAttribute('stroke','rgba(255,255,255,.25)');
+        hLine.setAttribute('stroke-width','1');
+        hLine.setAttribute('stroke-dasharray','3,3');
+        svg.appendChild(hLine);
+      }
+      const hx=px(idx).toFixed(1);
+      hLine.setAttribute('x1',hx);hLine.setAttribute('x2',hx);
+      hLine.setAttribute('y1',0);hLine.setAttribute('y2',H);
+      /* 메타 교체 */
+      const diff=v-vals[0], ds=(diff>=0?'+':'')+diff.toFixed(0)+'원';
+      metaEl.innerHTML=`<span class="fx-period">${pt.date.slice(5)}</span><span class="fx-chg ${diff>=0?'up':'dn'}">${Math.round(v).toLocaleString('ko-KR')}원 (${ds})</span>`;
+    }
+    function onLeave(){
+      if(hLine){hLine.remove();hLine=null;}
+      metaEl.innerHTML=origMeta;
+    }
+    svg.addEventListener('mousemove',onMove);
+    svg.addEventListener('mouseleave',onLeave);
+    svg.addEventListener('touchmove',e=>{e.preventDefault();onMove(e);},{passive:false});
+    svg.addEventListener('touchend',onLeave);
   }
 
   /* ── 공통: 준비물 진행률 (PRE 전용) ── */
