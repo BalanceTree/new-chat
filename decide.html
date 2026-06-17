@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회의 · 정할 것 🗳 | 도쿄 trip</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendard-dynamic-subset.min.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="decide.css">
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <a href="index.html">🏠 홈</a>
+      <a href="weather.html">☂ 날씨</a>
+      <a href="travel.html">🚗 이동</a>
+      <a href="itinerary.html">🗓️ 일정</a>
+      <a href="prep.html">🎒 준비</a>
+      <a href="stay.html">🏨 숙소</a>
+      <a href="care.html">🤟 크루</a>
+      <a href="decide.html" class="active">🗳 회의</a>
+    </nav>
+
+    <div class="dc-hero">
+      <div class="eyebrow">TOKYO · TO DECIDE</div>
+      <h1>회의 · 아직 정할 것</h1>
+      <p>아직 미정이거나 확정 안 난 안건 모음. 정해지면 체크하세요(이 기기에 저장). ★는 빨리 정해야 하는 것.</p>
+      <div class="progress">
+        <div class="pbar"><i></i></div>
+        <div class="ptxt">확정 0 / 0</div>
+      </div>
+    </div>
+
+    <div class="dc-group urgent">
+      <h3>⏰ 급함 — 먼저 정하기</h3>
+      <label class="dc"><input type="checkbox" id="d-teamlab"><span class="lbl">팀랩 플래닛 17시 시간지정 티켓 예약<span class="star">★</span><small>6/20 · 주말이라 빨리 매진</small></span></label>
+      <label class="dc"><input type="checkbox" id="d-acosta"><span class="lbl">아코스타 입장권 사전 구매<span class="star">★</span><small>6/20 · 전매 2,500엔 / 당일 2,800엔</small></span></label>
+      <label class="dc"><input type="checkbox" id="d-locker"><span class="lbl">21일 닛포리역 코인락커 — 인지만 (예약 불가)<small>일요일 만석 잦음 → 당일 아침 일찍 확보 · 안 되면 ecbo cloak</small></span></label>
+      <label class="dc"><input type="checkbox" id="d-weather"><span class="lbl">출발 2~3일 전 날씨 재확인<small>토요일 실내라 큰 변수는 없지만 19일 야외 체크</small></span></label>
+    </div>
+
+    <div class="dc-group food">
+      <h3>🍜 식당 (동선 따라)</h3>
+      <label class="dc"><input type="checkbox" id="d-f18l"><span class="lbl">18일 점심 — 닛포리/야나카긴자</span></label>
+      <label class="dc"><input type="checkbox" id="d-f18d"><span class="lbl">18일 저녁 — 아키하바라</span></label>
+      <label class="dc"><input type="checkbox" id="d-f19b"><span class="lbl">19일 아침 — 닛포리 근처</span></label>
+      <label class="dc"><input type="checkbox" id="d-f19l"><span class="lbl">19일 점심 — 에노시마/가타세 <small>시라스동 등</small></span></label>
+      <label class="dc"><input type="checkbox" id="d-f19d"><span class="lbl">19일 저녁 — 시부야</span></label>
+      <label class="dc"><input type="checkbox" id="d-f20b"><span class="lbl">20일 아침 — 닛포리 근처</span></label>
+      <label class="dc"><input type="checkbox" id="d-f20l"><span class="lbl">20일 점심 — 코쿤시티 일대</span></label>
+      <label class="dc"><input type="checkbox" id="d-f20d"><span class="lbl">20일 저녁 — 도요스 일대</span></label>
+      <label class="dc"><input type="checkbox" id="d-f21b"><span class="lbl">21일 아침 — 닛포리 근처</span></label>
+    </div>
+
+    <div class="dc-group air">
+      <h3>✈️ 항공 · 좌석</h3>
+      <label class="dc"><input type="checkbox" id="d-retseat"><span class="lbl">귀국편(LJ0210) 좌석 지정<small>출국은 8AB(성은·진혁) / 11BC(창섭·여찬) 완료</small></span></label>
+      <label class="dc"><input type="checkbox" id="d-bag"><span class="lbl">위탁수하물 추가 신청 여부<small>출국편 현재 한창섭만 신청 — 나머지 필요한지</small></span></label>
+      <label class="dc"><input type="checkbox" id="d-seat8b"><span class="lbl">8B 좌석 누구인지 확인<small>커플석으로 장진혁 가정 — 맞는지 확인</small></span></label>
+    </div>
+
+    <div class="dc-group stay">
+      <h3>🏨 숙소</h3>
+      <label class="dc"><input type="checkbox" id="d-addr"><span class="lbl">정확한 도로명 주소 확인<small>호스트 안내 후 → 길찾기 연결</small></span></label>
+      <label class="dc"><input type="checkbox" id="d-wifi"><span class="lbl">와이파이 · 출입(체크인) 방법 확인</span></label>
+    </div>
+
+    <div class="dc-group money">
+      <h3>💸 경비</h3>
+      <label class="dc"><input type="checkbox" id="d-budget"><span class="lbl">1인 예상 경비 산정</span></label>
+      <label class="dc"><input type="checkbox" id="d-dutch"><span class="lbl">더치페이 방식 확정<small>트래블월렛/토스 정산 등</small></span></label>
+      <label class="dc"><input type="checkbox" id="d-settle"><span class="lbl">공동경비 정산 담당 정하기</span></label>
+    </div>
+
+    <div class="dc-group etc">
+      <h3>❓ 기타</h3>
+      <label class="dc"><input type="checkbox" id="d-daibutsu"><span class="lbl">19일 가마쿠라 대불 들를지<small>에노시마 동선 빠듯 — 시간 보고 결정</small></span></label>
+      <label class="dc"><input type="checkbox" id="d-sim"><span class="lbl">eSIM / 포켓와이파이 정하기<small>각자 vs 공유</small></span></label>
+    </div>
+
+    <button id="dc-reset" class="dc-reset">↺ 체크 초기화</button>
+
+    <div class="foot">
+      이 페이지는 의사결정용 메모예요. 정해지면 체크하고, 일정/이동/숙소 페이지에 반영해 드릴게요.
+    </div>
+  </div>
+
+<script src="decide.js"></script>
+<script src="common.js"></script>
+</body>
+</html>
