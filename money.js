@@ -1,6 +1,6 @@
 /* money.js — 돈관리(정산) 모듈
  * 데이터 공유: Supabase REST (설정 시) · 미설정 시 이 기기 localStorage 폴백
- * 환율: open.er-api.com (무료·키 불필요) · 영수증 AI: 선택(무료 Google Gemini 키, 브라우저 저장)
+ * 환율: open.er-api.com (무료·키 불필요) · 영수증 AI: 선택(Cloudflare Worker 프록시, 키는 서버에 숨김)
  */
 (function () {
   'use strict';
@@ -43,8 +43,10 @@
   const RATES = { KRW: 1, JPY: 9.1, USD: 1380, EUR: 1480 };
   const SHARED = !!(SUPABASE_URL && SUPABASE_ANON_KEY);
   const LS_KEY = 'money_expenses_' + TRIP;
-  const AI_KEY_LS = 'money_gemini_key';
-  const GEMINI_MODEL = 'gemini-2.0-flash'; // 무료 티어 비전 모델 (바꾸려면 여기만 수정)
+  // 영수증 분석 프록시 URL (Cloudflare Worker). 배포 후 본인 워커 주소로 교체.
+  // 키는 워커 서버에만 있고 여기엔 노출 안 됨. 비우면 영수증 자동입력 비활성(수동 입력만).
+  // 배포 방법: worker/README.md 참고.
+  const RECEIPT_API = 'https://tokyo-receipt.ducks7858.workers.dev';
 
   let EXP = [];
 
@@ -200,36 +202,21 @@
     $('#m-amount').value = ''; $('#m-memo').value = ''; $('#m-ocr').style.display = 'none'; fillSelects();
   }
 
-  /* ===== 8) 영수증 AI (선택) — 무료 Google Gemini 키로 직접 호출 ===== */
+  /* ===== 8) 영수증 AI (선택) — Cloudflare Worker 프록시(키는 서버에 숨김, 키 입력 불필요) ===== */
   async function analyze(file) {
-    let key = localStorage.getItem(AI_KEY_LS);
-    if (!key) {
-      key = prompt('영수증 자동입력을 쓰려면 무료 Google Gemini API 키를 넣으세요.\n발급: aistudio.google.com/apikey (카드 등록 불필요·무료)\n이 기기 브라우저에만 저장됩니다.');
-      if (!key) return; localStorage.setItem(AI_KEY_LS, key.trim());
-    }
-    key = key.trim();
+    if (!RECEIPT_API) { toast('영수증 자동입력 미설정 — 금액을 직접 입력하세요'); return; }
     const drop = $('#m-drop'); drop.classList.add('busy'); $('#m-droplabel').textContent = '분석 중…';
     try {
       const b64 = await toB64(file);
-      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${encodeURIComponent(key)}`, {
+      const r = await fetch(RECEIPT_API, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [
-            { inline_data: { mime_type: file.type || 'image/jpeg', data: b64 } },
-            { text: `이 영수증을 분석해 JSON만 출력. 형식:
-{"total":숫자,"currency":"3글자코드","category":"다음중하나(${CATEGORIES.join(', ')})","memo":"한국어 가게/항목 요약","items":["항목 한국어 번역"]}
-통화 모르면 추정. 숫자에 쉼표·통화기호 금지.` },
-          ] }],
-          generationConfig: { temperature: 0, responseMimeType: 'application/json' },
-        }),
+        body: JSON.stringify({ data: b64, mime: file.type || 'image/jpeg' }),
       });
-      if (r.status === 400 || r.status === 403) { localStorage.removeItem(AI_KEY_LS); throw new Error('API 키가 올바르지 않습니다. 다시 시도하세요.'); }
       if (r.status === 429) throw new Error('무료 한도 초과 — 잠시 후 다시 시도하세요.');
       if (!r.ok) throw new Error('분석 실패 (' + r.status + ')');
-      const data = await r.json();
-      let txt = (data.candidates?.[0]?.content?.parts?.[0]?.text || '').replace(/```json|```/g, '').trim();
-      const j = JSON.parse(txt.slice(txt.indexOf('{'), txt.lastIndexOf('}') + 1));
+      const j = await r.json();
+      if (j.error) throw new Error(j.error);
       if (j.total) $('#m-amount').value = j.total;
       if (j.currency && RATES[j.currency]) $('#m-currency').value = j.currency;
       else if (j.currency) toast(j.currency + '는 환율 미지원 — 금액만 입력됨');
