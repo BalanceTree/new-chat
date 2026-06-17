@@ -103,6 +103,10 @@ body::before{
 }
 .nav a:hover{color:#fff;border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.12);box-shadow:0 0 0 1px rgba(255,255,255,.15) inset;}
 .nav a.active:hover{color:#fff;}
+/* 완료(비활성 느낌) — 회의 등 끝난 섹션. 클릭은 가능 */
+.nav a.done{opacity:.45;color:rgba(255,255,255,.45);border-style:dashed;background:transparent;}
+.nav a.done:hover{opacity:.8;color:#fff;}
+.nav a.done.active{opacity:1;color:#fff;border-style:solid;} /* 회의 페이지 자체에선 정상 강조 */
 
 .hero{
   position:relative;border-radius:24px;overflow:hidden;
