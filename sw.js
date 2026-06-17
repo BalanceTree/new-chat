@@ -1,12 +1,12 @@
 /* sw.js — 인공눈물 타이머 알림 + PWA 오프라인 캐싱 */
-const CACHE = 'tokyo-trip-v3';
+const CACHE = 'tokyo-trip-v4';
 const ASSETS = [
   './','./index.html','./weather.html','./travel.html','./itinerary.html',
-  './prep.html','./stay.html','./care.html','./decide.html',
+  './prep.html','./stay.html','./care.html','./decide.html','./money.html',
   './style.css','./dashboard.css','./travel.css','./itinerary.css','./prep.css',
-  './stay.css','./care.css','./decide.css',
+  './stay.css','./care.css','./decide.css','./money.css',
   './common.js','./dashboard.js','./rain.js','./weather-api.js','./accordion.js',
-  './prep.js','./exchange.js','./stay.js','./care.js','./decide.js',
+  './prep.js','./exchange.js','./stay.js','./care.js','./decide.js','./money.js',
   './favicon.svg','./manifest.json','./icon-192.png','./icon-512.png','./icon-180.png'
 ];
 

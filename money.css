@@ -1,0 +1,95 @@
+/* money.css — 돈관리(정산) 모듈 · style.css 토큰 재사용 */
+
+/* 연결 상태 배지 */
+.m-conn{position:absolute;top:18px;right:20px;font-size:11px;font-weight:700;letter-spacing:.02em;z-index:3;
+  padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.14);}
+.m-conn.live{color:#caffea;border-color:rgba(67,217,163,.5);background:rgba(67,217,163,.16);}
+.m-conn.local{color:#ffe1b0;border-color:rgba(255,184,77,.45);background:rgba(255,184,77,.14);}
+
+/* 요약 카드 */
+.m-summary{margin-top:16px;display:grid;grid-template-columns:1.3fr 1fr;gap:12px;}
+.m-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 18px;backdrop-filter:blur(12px);}
+.m-card .lbl{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.04em;}
+.m-card .big{font-family:'Pretendard Variable','Pretendard',sans-serif;font-weight:900;font-size:26px;margin-top:6px;color:var(--ink);letter-spacing:-.5px;}
+.m-card .sub{font-size:12px;color:var(--muted);margin-top:4px;}
+.m-card.accent{background:linear-gradient(125deg,rgba(79,124,255,.28),rgba(167,110,255,.2)),#121a32;border-color:rgba(255,255,255,.12);box-shadow:var(--glow);}
+.m-card.accent .lbl{color:rgba(255,255,255,.8);}
+.m-rate{margin-top:10px;font-size:12px;color:var(--muted);text-align:right;}
+.m-rate b{color:var(--haze);font-weight:700;}
+
+/* 폼 */
+.m-form{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;backdrop-filter:blur(12px);}
+.m-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+.m-row>*{flex:1;min-width:0;}
+.m-form label{display:block;font-size:11.5px;color:var(--muted);font-weight:700;margin:0 0 5px 2px;letter-spacing:.02em;}
+.m-form input,.m-form select{
+  width:100%;font-family:inherit;font-size:14px;color:var(--ink);
+  background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:11px;padding:11px 12px;outline:none;transition:border-color .15s;}
+.m-form input:focus,.m-form select:focus{border-color:var(--sky-mid);}
+.m-form select option{background:#141c33;color:var(--ink);}
+
+.m-split{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:6px;}
+.m-chip{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:13.5px;font-weight:600;color:rgba(255,255,255,.7);
+  background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:11px;padding:9px 11px;transition:all .15s;user-select:none;}
+.m-chip.on{color:#fff;border-color:transparent;background:linear-gradient(120deg,var(--sky-mid),#8a6bff);box-shadow:0 10px 24px -14px rgba(79,124,255,.8);}
+.m-chip .av{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:13px;flex:none;background:rgba(255,255,255,.15);}
+
+.m-conv{font-size:12px;color:var(--muted);margin-top:10px;}
+.m-conv b{color:var(--haze);font-weight:700;}
+
+.m-btns{display:flex;gap:10px;margin-top:14px;}
+.btn{font-family:inherit;font-size:14px;font-weight:800;cursor:pointer;border-radius:12px;padding:12px 16px;border:1px solid transparent;transition:all .15s;}
+.btn-primary{flex:1.6;color:#fff;background:linear-gradient(120deg,var(--sky-mid),#8a6bff);box-shadow:0 12px 30px -14px rgba(79,124,255,.8);}
+.btn-primary:hover{transform:translateY(-1px);}
+.btn-primary:disabled{opacity:.5;transform:none;cursor:default;}
+.btn-ghost{flex:.7;color:rgba(255,255,255,.75);background:rgba(255,255,255,.05);border-color:var(--line);}
+.btn-ghost:hover{color:#fff;border-color:rgba(255,255,255,.3);}
+
+/* 영수증 드롭 */
+.m-drop{margin-top:2px;border:2px dashed var(--line);border-radius:14px;padding:18px;text-align:center;color:var(--muted);cursor:pointer;transition:border-color .15s;}
+.m-drop:hover{border-color:var(--sky-mid);}
+.m-drop.busy{opacity:.55;pointer-events:none;}
+.m-drop .ic{font-size:26px;}
+.m-drop .t{font-size:13.5px;font-weight:700;color:rgba(255,255,255,.8);margin-top:4px;}
+.m-drop .h{font-size:11.5px;margin-top:3px;}
+.m-ocr{margin-top:10px;font-size:12.5px;}
+
+/* 지출 내역 */
+.m-list{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:8px 16px;backdrop-filter:blur(12px);}
+.m-exp{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);}
+.m-exp:last-child{border-bottom:none;}
+.m-exp .ico{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font-size:19px;flex:none;background:rgba(255,255,255,.06);}
+.m-exp .grow{flex:1;min-width:0;}
+.m-exp .ttl{font-size:14px;color:var(--ink);font-weight:600;}
+.m-exp .meta{font-size:11px;color:var(--muted);margin-top:2px;}
+.m-exp .amt{text-align:right;font-weight:800;font-size:14px;color:var(--ink);white-space:nowrap;}
+.m-exp .amt small{display:block;font-size:10.5px;color:var(--muted);font-weight:500;margin-top:1px;}
+.m-del{flex:none;font-family:inherit;font-size:12px;cursor:pointer;color:var(--bad);background:none;border:1px solid rgba(255,125,107,.4);border-radius:9px;padding:6px 9px;}
+.m-del:hover{background:rgba(255,125,107,.12);}
+.m-empty{text-align:center;color:var(--muted);font-size:13px;padding:22px 0;}
+
+/* 정산 */
+.m-settle{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;backdrop-filter:blur(12px);}
+.m-bal{display:flex;align-items:center;gap:11px;padding:11px;border-radius:12px;background:rgba(255,255,255,.04);margin-bottom:8px;}
+.m-bal .av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:17px;flex:none;background:rgba(255,255,255,.1);}
+.m-bal .grow{flex:1;min-width:0;}
+.m-bal .nm{font-weight:700;color:var(--ink);font-size:14px;}
+.m-bal .meta{font-size:11px;color:var(--muted);margin-top:2px;}
+.m-bal .net{font-weight:800;font-size:14px;white-space:nowrap;}
+.m-bal .net.plus{color:var(--good);}
+.m-bal .net.minus{color:var(--bad);}
+.m-transfer{display:flex;align-items:center;gap:10px;padding:11px;border-radius:12px;margin-bottom:8px;font-size:13.5px;color:var(--ink);
+  background:linear-gradient(120deg,rgba(79,124,255,.16),rgba(167,110,255,.12));border:1px solid var(--line);}
+.m-transfer b{color:var(--good);font-weight:800;margin-left:auto;font-size:14px;}
+.m-transfer .av{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:14px;background:rgba(255,255,255,.12);flex:none;}
+
+/* 토스트 */
+.m-toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+  background:#1a2238;border:1px solid var(--line);color:var(--ink);font-size:13.5px;font-weight:600;
+  padding:12px 18px;border-radius:13px;box-shadow:0 18px 40px -20px rgba(0,0,0,.8);z-index:80;opacity:0;transition:all .25s;max-width:90vw;pointer-events:none;}
+.m-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+@media(max-width:560px){
+  .m-summary{grid-template-columns:1fr;}
+  .m-split{grid-template-columns:1fr 1fr;}
+}
