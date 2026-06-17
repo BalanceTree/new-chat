@@ -1,5 +1,16 @@
 /* travel.css — 이동 페이지 전용. style.css의 :root/body/hero/nav 등을 재사용 */
 
+/* 좌석 배정 */
+.seatbox{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;backdrop-filter:blur(12px);}
+.seatrow{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.seatgrp{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:12px;padding:12px;}
+.seatgrp-t{font-size:11.5px;font-weight:700;color:var(--muted);letter-spacing:.03em;margin-bottom:9px;}
+.seats{display:flex;flex-direction:column;gap:7px;}
+.seat{font-size:13px;color:var(--ink);display:flex;justify-content:space-between;align-items:center;gap:8px;}
+.seat b{font-family:'Pretendard Variable','Pretendard',sans-serif;font-weight:900;font-size:15px;color:var(--sky-mid);background:rgba(79,124,255,.14);border:1px solid rgba(79,124,255,.3);border-radius:8px;padding:2px 9px;}
+.seatnote{font-size:11.5px;color:var(--muted);line-height:1.5;margin-top:12px;border-top:1px dashed var(--line);padding-top:10px;}
+@media(max-width:560px){.seatrow{grid-template-columns:1fr;}}
+
 /* 항공 왕복 카드 */
 .flights{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;}
 .flight{
