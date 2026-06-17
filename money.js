@@ -25,8 +25,8 @@
    *   alter table money_expenses enable row level security;
    *   create policy "crew all" on money_expenses for all using (true) with check (true);
    */
-  const SUPABASE_URL = '';            // 예: 'https://abcd1234.supabase.co'
-  const SUPABASE_ANON_KEY = '';       // 예: 'eyJhbGciOi...'
+  const SUPABASE_URL = 'https://srxnnccuxnfhnantmrxr.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNyeG5uY2N1eG5maG5hbnRtcnhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2NTc4MTUsImV4cCI6MjA5NzIzMzgxNX0.mMbbrkuC_ScOXLdsPmzMduOT1k-9KEK6C7wrZ9kcMME';
   const TRIP = 'tokyo';
 
   /* ===== 2) 고정 데이터 ===== */

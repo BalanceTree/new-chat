@@ -419,3 +419,38 @@
     else { pPct.textContent='시작 전'; pSub.textContent='준비물 체크리스트 →'; }
   }
 })();
+
+/* ── 홈: 최근 크루 메모 미리보기 ── */
+(function(){
+  const SUPABASE_URL = 'https://srxnnccuxnfhnantmrxr.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNyeG5uY2N1eG5maG5hbnRtcnhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2NTc4MTUsImV4cCI6MjA5NzIzMzgxNX0.mMbbrkuC_ScOXLdsPmzMduOT1k-9KEK6C7wrZ9kcMME';
+  const TRIP = 'tokyo';
+  const EMO = { '곽성은':'💅','장진혁':'🥰','한창섭':'🤳','윤여찬':'😎' };
+  const box = document.getElementById('memo-mini');
+  if(!box || !SUPABASE_URL || !SUPABASE_ANON_KEY) return;
+
+  function esc(s){ return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+  function ago(iso){
+    if(!iso) return '';
+    const d = (Date.now() - new Date(iso).getTime())/60000;
+    if(d < 1) return '방금';
+    if(d < 60) return Math.floor(d)+'분 전';
+    if(d < 1440) return Math.floor(d/60)+'시간 전';
+    return Math.floor(d/1440)+'일 전';
+  }
+
+  fetch(`${SUPABASE_URL}/rest/v1/crew_memos?trip=eq.${TRIP}&body=neq.&order=updated_at.desc&limit=1`, {
+    headers: { apikey: SUPABASE_ANON_KEY, authorization: 'Bearer ' + SUPABASE_ANON_KEY }
+  })
+  .then(r => r.ok ? r.json() : [])
+  .then(rows => {
+    const m = rows[0];
+    if(!m || !m.body) return; // 비어 있으면 기본 안내 유지
+    const emo = EMO[m.name] || '📝';
+    const snippet = m.body.length > 80 ? m.body.slice(0,80) + '…' : m.body;
+    box.innerHTML = `
+      <div class="mm-top"><span class="mm-av">${emo}</span><span class="mm-name">${esc(m.name)}</span><span class="mm-ago">${ago(m.updated_at)}</span></div>
+      <div class="mm-body">${esc(snippet)}</div>`;
+  })
+  .catch(()=>{});
+})();

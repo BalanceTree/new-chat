@@ -68,22 +68,25 @@
 .fx-chip:hover{border-color:var(--sky-mid);background:rgba(79,124,255,.16);}
 .fx-chip.refresh{margin-left:auto;color:var(--good);border-color:rgba(67,217,163,.3);}
 
-/* 개인 메모 */
-.memo-box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;backdrop-filter:blur(12px);}
-.memo-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:8px;}
-.memo-head span{font-size:12px;color:var(--muted);}
-.memo-head button{font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;background:rgba(255,100,100,.12);border:1px solid rgba(255,100,100,.25);color:#ff9d9d;padding:5px 11px;border-radius:20px;transition:all .15s;}
-.memo-head button:hover{background:rgba(255,100,100,.22);}
-#memo-text{
+/* 크루 메모 — 4명 각자 카드 */
+.memo-note{font-size:12px;color:var(--muted);margin:0 4px 12px;}
+.memo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.memo-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px;backdrop-filter:blur(12px);transition:border-color .15s;}
+.memo-card:focus-within{border-color:rgba(79,124,255,.45);}
+.memo-name{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.memo-name .av{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:15px;flex:none;background:rgba(255,255,255,.12);}
+.memo-name .nm{font-weight:800;font-size:14px;color:var(--ink);letter-spacing:.01em;}
+.memo-name .memo-status{margin-left:auto;font-size:11px;color:var(--good);opacity:0;transition:opacity .3s;white-space:nowrap;}
+.memo-ta{
   width:100%;font-family:'Pretendard Variable','Pretendard',sans-serif;
-  font-size:14px;line-height:1.7;color:var(--ink);
+  font-size:13.5px;line-height:1.65;color:var(--ink);
   background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:11px;
-  padding:12px 14px;outline:none;resize:vertical;
+  padding:11px 12px;outline:none;resize:vertical;min-height:84px;
   transition:border-color .15s;
 }
-#memo-text:focus{border-color:var(--sky-mid);}
-#memo-text::placeholder{color:var(--muted);opacity:.6;}
-.memo-saved{font-size:11px;color:var(--good);margin-top:7px;min-height:16px;transition:opacity .3s;}
+.memo-ta:focus{border-color:var(--sky-mid);}
+.memo-ta::placeholder{color:var(--muted);opacity:.6;}
+@media(max-width:560px){.memo-grid{grid-template-columns:1fr;}}
 
 .camera-group {
   border-top: 3px solid rgba(255,184,77,.6);

@@ -21,8 +21,9 @@ body{
   font-family:'Pretendard Variable','Pretendard',-apple-system,sans-serif;
   color:var(--ink);
   min-height:100vh;
+  min-height:100dvh;
   display:flex;justify-content:center;
-  padding:22px 16px 48px;
+  padding:calc(22px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) calc(48px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left));
   -webkit-font-smoothing:antialiased;
   background:
     radial-gradient(1100px 620px at 8% -12%, rgba(79,124,255,.28), transparent 58%),
@@ -72,7 +73,7 @@ body::before{
 
 /* PWA 설치 버튼 (플로팅) */
 .install-btn{
-  position:fixed;right:16px;bottom:18px;z-index:50;
+  position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:50;
   font-family:'Pretendard Variable','Pretendard',sans-serif;font-size:13px;font-weight:800;cursor:pointer;
   color:#fff;background:linear-gradient(120deg,#4f7cff,#a06bff);
   border:1px solid rgba(255,255,255,.3);border-radius:30px;
