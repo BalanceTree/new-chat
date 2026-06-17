@@ -24,6 +24,8 @@
    *   );
    *   alter table money_expenses enable row level security;
    *   create policy "crew all" on money_expenses for all using (true) with check (true);
+   *   -- 영수증 사진 보관(선택): 아래 한 줄도 실행하면 사진이 크루 공유됨
+   *   alter table money_expenses add column if not exists receipt text;
    */
   const SUPABASE_URL = 'https://srxnnccuxnfhnantmrxr.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNyeG5uY2N1eG5maG5hbnRtcnhyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2NTc4MTUsImV4cCI6MjA5NzIzMzgxNX0.mMbbrkuC_ScOXLdsPmzMduOT1k-9KEK6C7wrZ9kcMME';
@@ -49,6 +51,7 @@
   const RECEIPT_API = 'https://tokyo-receipt.ducks7858.workers.dev';
 
   let EXP = [];
+  let pendingReceipt = null; // 첨부된 영수증(압축 data URL) — 저장 시 함께 보관
 
   /* ===== 3) DOM 헬퍼 ===== */
   const $ = (s) => document.querySelector(s);
@@ -79,17 +82,29 @@
   }
   function normalize(row) {
     return { id: row.id, amount: +row.amount, currency: row.currency, category: row.category,
-      payer: +row.payer, split: row.split, memo: row.memo || '', date: row.spent_on || row.date };
+      payer: +row.payer, split: row.split, memo: row.memo || '', date: row.spent_on || row.date,
+      receipt: row.receipt || null };
   }
   async function addExpense(e) {
     if (!SHARED) {
       e.id = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()));
-      EXP.push(e); localStorage.setItem(LS_KEY, JSON.stringify(EXP)); return e;
+      EXP.push(e);
+      try { localStorage.setItem(LS_KEY, JSON.stringify(EXP)); }
+      catch { e.receipt = null; localStorage.setItem(LS_KEY, JSON.stringify(EXP)); toast('저장공간 부족 — 사진 없이 저장됨'); }
+      return e;
     }
+    const post = (b) => fetch(`${SUPABASE_URL}/rest/v1/money_expenses`, {
+      method: 'POST', headers: sbHeaders({ prefer: 'return=representation' }), body: JSON.stringify(b) });
     const body = { trip: TRIP, amount: e.amount, currency: e.currency, category: e.category,
       payer: e.payer, split: e.split, memo: e.memo, spent_on: e.date };
-    const r = await fetch(`${SUPABASE_URL}/rest/v1/money_expenses`, {
-      method: 'POST', headers: sbHeaders({ prefer: 'return=representation' }), body: JSON.stringify(body) });
+    if (e.receipt) body.receipt = e.receipt;
+    let r = await post(body);
+    if (!r.ok && e.receipt) {
+      // receipt 컬럼이 아직 없을 수 있음 → 사진 빼고 재시도(지출은 정상 저장)
+      delete body.receipt;
+      console.warn('money: receipt 컬럼 없음 — 사진 미저장. DB에 "alter table money_expenses add column if not exists receipt text;" 실행 필요');
+      r = await post(body);
+    }
     if (!r.ok) throw new Error('저장 실패 (' + r.status + ')');
     const saved = normalize((await r.json())[0]); EXP.push(saved); return saved;
   }
@@ -120,7 +135,7 @@
     $('#m-currency').innerHTML = Object.keys(RATES).map((c) => `<option ${c === 'JPY' ? 'selected' : ''}>${c}</option>`).join('');
     $('#m-category').innerHTML = CATEGORIES.map((c) => `<option>${c}</option>`).join('');
     $('#m-payer').innerHTML = MEMBERS.map((m, i) => `<option value="${i}">${m.emo} ${esc(m.name)}</option>`).join('');
-    if (!$('#m-date').value) $('#m-date').value = new Date().toISOString().slice(0, 10);
+    if (!$('#m-date').value) { const d = new Date(); $('#m-date').value = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; }
     renderSplit();
   }
   function renderSplit() {
@@ -145,13 +160,22 @@
     const ex = [...EXP].reverse();
     $('#m-list').innerHTML = ex.length ? ex.map((e) => {
       const base = toKRW(e.amount, e.currency), payer = MEMBERS[e.payer];
+      const rcpt = e.receipt ? `<img class="m-rcpt" src="${e.receipt}" alt="영수증">` : '';
       return `<div class="m-exp"><div class="ico">${CAT_ICON[e.category] || '💳'}</div>
         <div class="grow"><div class="ttl">${esc(e.memo) || e.category}</div>
           <div class="meta">${e.date} · ${payer ? payer.emo + ' ' + esc(payer.name) : '?'} 결제 · ${e.split.length}명 분할</div></div>
+        ${rcpt}
         <div class="amt">${won(base)}${e.currency !== 'KRW' ? `<small>${e.currency} ${(+e.amount).toLocaleString()}</small>` : ''}</div>
         <button class="m-del" data-del="${e.id}">삭제</button></div>`;
     }).join('') : '<div class="m-empty">아직 지출이 없어요. 위에서 추가해보세요.</div>';
     document.querySelectorAll('[data-del]').forEach((b) => b.onclick = () => del(b.dataset.del));
+    document.querySelectorAll('.m-rcpt').forEach((img) => img.onclick = () => openReceipt(img.src));
+  }
+  function openReceipt(src) {
+    const o = document.createElement('div'); o.className = 'm-rcpt-overlay';
+    const im = document.createElement('img'); im.src = src; o.appendChild(im);
+    o.onclick = () => o.remove();
+    document.body.appendChild(o);
   }
   function renderSettle() {
     const n = MEMBERS.length, paid = Array(n).fill(0), owe = Array(n).fill(0);
@@ -191,7 +215,8 @@
     $('#m-save').disabled = true;
     try {
       await addExpense({ amount: amt, currency: $('#m-currency').value, category: $('#m-category').value,
-        payer: +$('#m-payer').value, split, memo: $('#m-memo').value.trim(), date: $('#m-date').value });
+        payer: +$('#m-payer').value, split, memo: $('#m-memo').value.trim(), date: $('#m-date').value,
+        receipt: pendingReceipt });
       reset(); renderAll(); toast('저장됐어요 ✅');
     } catch (e) { toast(e.message); } finally { $('#m-save').disabled = false; }
   }
@@ -199,19 +224,57 @@
     try { await removeExpense(id); renderAll(); toast('삭제됨'); } catch (e) { toast(e.message); }
   }
   function reset() {
-    $('#m-amount').value = ''; $('#m-memo').value = ''; $('#m-ocr').style.display = 'none'; fillSelects();
+    $('#m-amount').value = ''; $('#m-memo').value = ''; $('#m-ocr').style.display = 'none';
+    pendingReceipt = null; const p = $('#m-preview'); if (p) { p.style.display = 'none'; p.innerHTML = ''; }
+    fillSelects();
   }
 
-  /* ===== 8) 영수증 AI (선택) — Cloudflare Worker 프록시(키는 서버에 숨김, 키 입력 불필요) ===== */
-  async function analyze(file) {
-    if (!RECEIPT_API) { toast('영수증 자동입력 미설정 — 금액을 직접 입력하세요'); return; }
+  /* ===== 8) 영수증 — 사진 첨부 보관 + (선택) AI 자동입력 ===== */
+  // 사진 선택 시: 압축 → 미리보기/보관(pendingReceipt) → AI 분석으로 폼 자동입력
+  async function handleFile(file) {
+    if (!file || !(file.type || '').startsWith('image/')) return toast('이미지 파일을 선택하세요');
+    let dataUrl = null;
+    try { dataUrl = await compressImage(file); } catch { dataUrl = null; }
+    pendingReceipt = dataUrl;
+    showPreview(dataUrl);
+    analyze(file, dataUrl);
+  }
+
+  function showPreview(dataUrl) {
+    const p = $('#m-preview'); if (!p) return;
+    if (!dataUrl) { p.style.display = 'none'; p.innerHTML = ''; return; }
+    p.style.display = 'inline-block';
+    p.innerHTML = '<img alt="영수증"><button type="button" class="m-prev-x" title="제거">✕</button><span class="m-prev-t">📎 영수증 첨부됨 · 저장 시 함께 보관</span>';
+    p.querySelector('img').src = dataUrl;
+    p.querySelector('.m-prev-x').onclick = () => { pendingReceipt = null; showPreview(null); };
+  }
+
+  // 캔버스로 리사이즈 + JPEG 압축 → data URL (DB 보관용, 가볍게)
+  function compressImage(file, maxDim, quality) {
+    maxDim = maxDim || 1100; quality = quality || 0.6;
+    return new Promise((res, rej) => {
+      const img = new Image(), url = URL.createObjectURL(file);
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        let w = img.width, h = img.height; const m = Math.max(w, h);
+        if (m > maxDim) { const s = maxDim / m; w = Math.round(w * s); h = Math.round(h * s); }
+        const c = document.createElement('canvas'); c.width = w; c.height = h;
+        c.getContext('2d').drawImage(img, 0, 0, w, h);
+        res(c.toDataURL('image/jpeg', quality));
+      };
+      img.onerror = rej; img.src = url;
+    });
+  }
+
+  async function analyze(file, dataUrl) {
+    if (!RECEIPT_API) return; // 자동입력 미설정 — 사진 첨부만 하고 끝
     const drop = $('#m-drop'); drop.classList.add('busy'); $('#m-droplabel').textContent = '분석 중…';
     try {
-      const b64 = await toB64(file);
+      const b64 = dataUrl ? dataUrl.split(',')[1] : await toB64(file);
       const r = await fetch(RECEIPT_API, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ data: b64, mime: file.type || 'image/jpeg' }),
+        body: JSON.stringify({ data: b64, mime: dataUrl ? 'image/jpeg' : (file.type || 'image/jpeg') }),
       });
       if (r.status === 429) throw new Error('무료 한도 초과 — 잠시 후 다시 시도하세요.');
       if (!r.ok) throw new Error('분석 실패 (' + r.status + ')');
@@ -228,8 +291,7 @@
       toast('자동 입력 완료 ✨');
     } catch (e) {
       $('#m-ocr').style.display = 'block';
-      $('#m-ocr').innerHTML = `<span style="color:var(--bad)">${esc(e.message)} — 수동 입력해 주세요.</span>`;
-      toast(e.message);
+      $('#m-ocr').innerHTML = `<span style="color:var(--bad)">${esc(e.message)}</span> <span style="color:var(--muted)">— 금액만 직접 입력하세요 (사진은 첨부됨)</span>`;
     } finally { drop.classList.remove('busy'); $('#m-droplabel').textContent = '영수증 사진으로 자동 입력'; }
   }
   const toB64 = (file) => new Promise((res, rej) => {
@@ -246,8 +308,8 @@
     drop.onclick = () => file.click();
     drop.ondragover = (e) => { e.preventDefault(); drop.style.borderColor = 'var(--sky-mid)'; };
     drop.ondragleave = () => drop.style.borderColor = '';
-    drop.ondrop = (e) => { e.preventDefault(); drop.style.borderColor = ''; if (e.dataTransfer.files[0]) analyze(e.dataTransfer.files[0]); };
-    file.onchange = (e) => { if (e.target.files[0]) analyze(e.target.files[0]); };
+    drop.ondrop = (e) => { e.preventDefault(); drop.style.borderColor = ''; if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]); };
+    file.onchange = (e) => { if (e.target.files[0]) handleFile(e.target.files[0]); };
   }
   async function init() {
     const conn = $('#m-conn');
