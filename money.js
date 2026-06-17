@@ -276,10 +276,8 @@
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ data: b64, mime: dataUrl ? 'image/jpeg' : (file.type || 'image/jpeg') }),
       });
-      if (r.status === 429) throw new Error('무료 한도 초과 — 잠시 후 다시 시도하세요.');
-      if (!r.ok) throw new Error('분석 실패 (' + r.status + ')');
-      const j = await r.json();
-      if (j.error) throw new Error(j.error);
+      const j = await r.json().catch(() => null);
+      if (!r.ok || !j || j.error) throw new Error((j && j.error) || ('분석 실패 (' + r.status + ')'));
       if (j.total) $('#m-amount').value = j.total;
       if (j.currency && RATES[j.currency]) $('#m-currency').value = j.currency;
       else if (j.currency) toast(j.currency + '는 환율 미지원 — 금액만 입력됨');

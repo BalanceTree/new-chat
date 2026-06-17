@@ -1,5 +1,5 @@
 /* sw.js — 인공눈물 타이머 알림 + PWA 오프라인 캐싱 */
-const CACHE = 'tokyo-trip-v6';
+const CACHE = 'tokyo-trip-v7';
 const ASSETS = [
   './','./index.html','./weather.html','./travel.html','./itinerary.html',
   './prep.html','./stay.html','./care.html','./decide.html','./money.html',
