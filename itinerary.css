@@ -87,6 +87,19 @@
 .slot.is-tbd .t{color:#b29cff;}
 .slot.is-tbd .c .h{color:#cdbcff;}
 
+/* 식당(밥) 슬롯 — 가독성 강조 */
+.slot.meal{align-items:flex-start;}
+.slot.meal .t{color:var(--amber);font-size:12px;font-weight:800;text-align:center;line-height:1.25;}
+.slot.meal .t .mi{display:block;font-size:17px;margin-bottom:2px;}
+.slot.meal .c .h{font-size:14.5px;font-weight:800;display:flex;align-items:center;flex-wrap:wrap;gap:6px;}
+.meal-tag{font-size:10px;font-weight:800;letter-spacing:.04em;background:rgba(224,144,60,.18);color:var(--amber);border-radius:6px;padding:2px 7px;}
+.meal-tag.tbd{background:rgba(167,110,255,.18);color:#c4b1ff;}
+.meal-genre{font-size:11px;font-weight:700;color:var(--muted);}
+.slot.meal .alts{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin-top:7px;}
+.slot.meal .alts .alt-lbl{font-size:10.5px;font-weight:800;color:var(--muted);letter-spacing:.03em;}
+.slot.meal .alts .alt{font-size:11px;font-weight:600;color:rgba(255,255,255,.82);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:2px 9px;white-space:nowrap;}
+.slot.meal.is-tbd .c .h{color:#cdbcff;}
+
 .tbd-note{
   margin-top:14px;background:rgba(167,110,255,.12);border:1px dashed rgba(167,110,255,.4);border-radius:12px;
   padding:13px 15px;font-size:12.5px;color:#cdbcff;line-height:1.6;
