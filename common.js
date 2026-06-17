@@ -8,6 +8,11 @@
   }
 })();
 
+/* PWA 서비스워커 등록 (오프라인 + 홈화면 설치) */
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+
 (function(){
   const wrap = document.querySelector('.wrap');
   if(!wrap) return;

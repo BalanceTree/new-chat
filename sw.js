@@ -1,8 +1,39 @@
-/* sw.js — 인공눈물 타이머 알림 전용 Service Worker */
-const CACHE = 'tokyo-trip-v1';
+/* sw.js — 인공눈물 타이머 알림 + PWA 오프라인 캐싱 */
+const CACHE = 'tokyo-trip-v2';
+const ASSETS = [
+  './','./index.html','./weather.html','./travel.html','./itinerary.html',
+  './prep.html','./stay.html','./care.html','./decide.html',
+  './style.css','./dashboard.css','./travel.css','./itinerary.css','./prep.css',
+  './stay.css','./care.css','./decide.css',
+  './common.js','./dashboard.js','./rain.js','./weather-api.js','./accordion.js',
+  './prep.js','./exchange.js','./stay.js','./care.js','./decide.js',
+  './favicon.svg','./manifest.json','./icon-192.png','./icon-512.png','./icon-180.png'
+];
 
-self.addEventListener('install', () => self.skipWaiting());
-self.addEventListener('activate', e => e.waitUntil(self.clients.claim()));
+self.addEventListener('install', e => {
+  self.skipWaiting();
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).catch(()=>{}));
+});
+
+self.addEventListener('activate', e => e.waitUntil(
+  caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k))))
+    .then(() => self.clients.claim())
+));
+
+/* 네트워크 우선, 실패 시 캐시 (오프라인 대비) — 외부 API는 통과 */
+self.addEventListener('fetch', e => {
+  const req = e.request;
+  if (req.method !== 'GET') return;
+  const url = new URL(req.url);
+  if (url.origin !== self.location.origin) return; // 외부(날씨·환율 API 등)는 그대로
+  e.respondWith(
+    fetch(req).then(res => {
+      const copy = res.clone();
+      caches.open(CACHE).then(c => c.put(req, copy)).catch(()=>{});
+      return res;
+    }).catch(() => caches.match(req).then(r => r || caches.match('./index.html')))
+  );
+});
 
 /* 타이머 스케줄 메시지 수신 */
 self.addEventListener('message', event => {
