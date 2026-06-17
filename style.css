@@ -69,6 +69,19 @@ body::before{
   padding:5px 11px;border-radius:30px;transition:all .15s;white-space:nowrap;backdrop-filter:blur(4px);
 }
 .topbar .share:hover{background:rgba(255,255,255,.32);transform:translateY(-1px);}
+
+/* PWA 설치 버튼 (플로팅) */
+.install-btn{
+  position:fixed;right:16px;bottom:18px;z-index:50;
+  font-family:'Pretendard Variable','Pretendard',sans-serif;font-size:13px;font-weight:800;cursor:pointer;
+  color:#fff;background:linear-gradient(120deg,#4f7cff,#a06bff);
+  border:1px solid rgba(255,255,255,.3);border-radius:30px;
+  padding:11px 18px;box-shadow:0 12px 30px -10px rgba(120,90,255,.8);
+  display:flex;align-items:center;gap:6px;animation:installPop .4s ease;
+}
+.install-btn:hover{transform:translateY(-2px);}
+.install-btn .x{margin-left:6px;opacity:.7;font-weight:700;}
+@keyframes installPop{from{transform:translateY(20px);opacity:0;}to{transform:translateY(0);opacity:1;}}
 .topbar .share.copied{background:var(--good);border-color:var(--good);}
 
 .nav{display:flex;flex-wrap:nowrap;gap:7px;margin-bottom:16px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;}

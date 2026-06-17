@@ -13,6 +13,43 @@ if('serviceWorker' in navigator){
   window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(()=>{}));
 }
 
+/* PWA 설치(다운로드) 버튼 */
+(function(){
+  const installed = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  if(installed) return; // 이미 앱으로 설치됨
+  if(sessionStorage.getItem('install-dismissed')) return;
+
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  let deferred = null;
+
+  const btn = document.createElement('button');
+  btn.className = 'install-btn';
+  btn.type = 'button';
+  btn.innerHTML = '⬇ 앱 다운로드<span class="x" aria-label="닫기">✕</span>';
+  btn.style.display = 'none';
+
+  function show(){ document.body.appendChild(btn); btn.style.display = 'flex'; }
+
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferred = e; show(); });
+  window.addEventListener('appinstalled', () => { btn.remove(); deferred = null; });
+
+  // iOS는 beforeinstallprompt 미지원 → 안내 버튼 노출
+  if(isIOS) window.addEventListener('load', show);
+
+  btn.addEventListener('click', async (e) => {
+    if(e.target.classList.contains('x')){ btn.remove(); sessionStorage.setItem('install-dismissed','1'); return; }
+    if(deferred){
+      deferred.prompt();
+      const { outcome } = await deferred.userChoice;
+      if(outcome === 'accepted') btn.remove();
+      deferred = null;
+      return;
+    }
+    if(isIOS){ alert('📲 설치 방법\n\n사파리 하단 공유 버튼(□↑) → "홈 화면에 추가" 를 누르면 앱처럼 설치돼요.'); return; }
+    alert('📲 설치 방법\n\n브라우저 메뉴(⋮) → "앱 설치" 또는 "홈 화면에 추가" 를 선택하세요.');
+  });
+})();
+
 (function(){
   const wrap = document.querySelector('.wrap');
   if(!wrap) return;
