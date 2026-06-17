@@ -1,6 +1,6 @@
 /* money.js — 돈관리(정산) 모듈
  * 데이터 공유: Supabase REST (설정 시) · 미설정 시 이 기기 localStorage 폴백
- * 환율: open.er-api.com (무료·키 불필요) · 영수증 AI: 선택(브라우저에 저장한 Claude 키 사용)
+ * 환율: open.er-api.com (무료·키 불필요) · 영수증 AI: 선택(무료 Google Gemini 키, 브라우저 저장)
  */
 (function () {
   'use strict';
@@ -43,7 +43,8 @@
   const RATES = { KRW: 1, JPY: 9.1, USD: 1380, EUR: 1480 };
   const SHARED = !!(SUPABASE_URL && SUPABASE_ANON_KEY);
   const LS_KEY = 'money_expenses_' + TRIP;
-  const AI_KEY_LS = 'money_ai_key';
+  const AI_KEY_LS = 'money_gemini_key';
+  const GEMINI_MODEL = 'gemini-2.0-flash'; // 무료 티어 비전 모델 (바꾸려면 여기만 수정)
 
   let EXP = [];
 
@@ -199,32 +200,35 @@
     $('#m-amount').value = ''; $('#m-memo').value = ''; $('#m-ocr').style.display = 'none'; fillSelects();
   }
 
-  /* ===== 8) 영수증 AI (선택) — 브라우저에 저장한 Claude 키로 직접 호출 ===== */
+  /* ===== 8) 영수증 AI (선택) — 무료 Google Gemini 키로 직접 호출 ===== */
   async function analyze(file) {
     let key = localStorage.getItem(AI_KEY_LS);
     if (!key) {
-      key = prompt('영수증 자동분석을 쓰려면 Claude API 키(sk-ant-...)를 입력하세요.\n이 기기 브라우저에만 저장됩니다.');
+      key = prompt('영수증 자동입력을 쓰려면 무료 Google Gemini API 키를 넣으세요.\n발급: aistudio.google.com/apikey (카드 등록 불필요·무료)\n이 기기 브라우저에만 저장됩니다.');
       if (!key) return; localStorage.setItem(AI_KEY_LS, key.trim());
     }
+    key = key.trim();
     const drop = $('#m-drop'); drop.classList.add('busy'); $('#m-droplabel').textContent = '분석 중…';
     try {
       const b64 = await toB64(file);
-      const r = await fetch('https://api.anthropic.com/v1/messages', {
+      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${encodeURIComponent(key)}`, {
         method: 'POST',
-        headers: { 'content-type': 'application/json', 'x-api-key': key,
-          'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-        body: JSON.stringify({ model: 'claude-opus-4-8', max_tokens: 1024,
-          messages: [{ role: 'user', content: [
-            { type: 'image', source: { type: 'base64', media_type: file.type || 'image/jpeg', data: b64 } },
-            { type: 'text', text: `이 영수증을 분석해 JSON만 출력. 형식:
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [
+            { inline_data: { mime_type: file.type || 'image/jpeg', data: b64 } },
+            { text: `이 영수증을 분석해 JSON만 출력. 형식:
 {"total":숫자,"currency":"3글자코드","category":"다음중하나(${CATEGORIES.join(', ')})","memo":"한국어 가게/항목 요약","items":["항목 한국어 번역"]}
-통화 모르면 추정. JSON 외 텍스트 금지.` },
-          ] }] }),
+통화 모르면 추정. 숫자에 쉼표·통화기호 금지.` },
+          ] }],
+          generationConfig: { temperature: 0, responseMimeType: 'application/json' },
+        }),
       });
-      if (r.status === 401) { localStorage.removeItem(AI_KEY_LS); throw new Error('API 키가 올바르지 않습니다. 다시 시도하세요.'); }
+      if (r.status === 400 || r.status === 403) { localStorage.removeItem(AI_KEY_LS); throw new Error('API 키가 올바르지 않습니다. 다시 시도하세요.'); }
+      if (r.status === 429) throw new Error('무료 한도 초과 — 잠시 후 다시 시도하세요.');
       if (!r.ok) throw new Error('분석 실패 (' + r.status + ')');
       const data = await r.json();
-      let txt = (data.content?.[0]?.text || '').replace(/```json|```/g, '').trim();
+      let txt = (data.candidates?.[0]?.content?.parts?.[0]?.text || '').replace(/```json|```/g, '').trim();
       const j = JSON.parse(txt.slice(txt.indexOf('{'), txt.lastIndexOf('}') + 1));
       if (j.total) $('#m-amount').value = j.total;
       if (j.currency && RATES[j.currency]) $('#m-currency').value = j.currency;
