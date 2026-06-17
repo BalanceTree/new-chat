@@ -10,7 +10,25 @@
     { id: 'jma_seamless',        name: 'JMA 기상청',    flag: '🗾' },
     { id: 'icon_seamless',       name: 'DWD ICON',      flag: '🇩🇪' },
     { id: 'meteofrance_seamless',name: 'Météo-France',  flag: '🇫🇷' },
+    { id: 'gem_seamless',        name: 'GEM 캐나다',    flag: '🇨🇦' },
+    { id: 'ukmo_seamless',       name: 'UKMO 영국',     flag: '🇬🇧' },
+    { id: 'cma_grapes_global',   name: 'CMA 중국',      flag: '🇨🇳' },
   ];
+
+  /* 강수확률이 없는 모델은 강수량(mm)·날씨코드로 추정 */
+  function estProb(v) {
+    if (v.precip != null) return { p: v.precip, est: false };
+    const mm = v.precipMm;
+    if (mm != null) {
+      let p = mm <= 0 ? 5 : mm < 1 ? 35 : mm < 3 ? 55 : mm < 10 ? 72 : 88;
+      return { p, est: true };
+    }
+    if (v.wcode != null) {
+      let p = v.wcode >= 61 ? 80 : v.wcode >= 51 ? 55 : v.wcode >= 3 ? 30 : 10;
+      return { p, est: true };
+    }
+    return { p: null, est: false };
+  }
 
   const DAILY_PARAMS = [
     'precipitation_probability_max',
@@ -128,8 +146,11 @@
 
         if (!vals.length) return { date, ok: false };
 
+        vals.forEach(v => { const e = estProb(v); v.prob = e.p; v.est = e.est; });
+
         const pick = k => vals.map(v => v[k]).filter(v => v != null);
-        const pa = pick('precip'), ma = pick('precipMm'), ta = pick('tmax'),
+        const pa = vals.map(v => v.prob).filter(v => v != null),
+              ma = pick('precipMm'), ta = pick('tmax'),
               na = pick('tmin'), fa = pick('feels'), wa = pick('wind'),
               ha = pick('humid'), ua = pick('uv'),
               wcodes = pick('wcode');
@@ -251,12 +272,13 @@
       html += `<tr><td class="ma-model">${m.flag} ${m.name}</td>`;
       byDate.forEach(info => {
         const val = info.vals?.find(v => v.modelName === m.name);
-        if (!val || val.precip == null) { html += '<td class="ma-na">—</td>'; return; }
-        const p = ri(val.precip);
+        if (!val || val.prob == null) { html += '<td class="ma-na">—</td>'; return; }
+        const p = ri(val.prob);
         const cls = p >= 70 ? 'hi' : p <= 40 ? 'lo' : '';
+        const est = val.est ? '<span class="ma-est" title="강수량 기반 추정">~</span>' : '';
         const mm = val.precipMm != null && val.precipMm > 0
           ? `<br><span class="ma-mm">${round(val.precipMm)}mm</span>` : '';
-        html += `<td class="ma-p ${cls}">${p}%${mm}</td>`;
+        html += `<td class="ma-p ${cls}">${est}${p}%${mm}</td>`;
       });
       html += '</tr>';
     });

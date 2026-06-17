@@ -63,6 +63,19 @@
 .acc-content{padding:4px 20px 20px;border-top:1px solid var(--line);margin-top:0;}
 .acc-content::before{content:"";display:block;height:14px;}
 
+/* 오늘의 핵심 하이라이트 */
+.day-highlight{
+  display:flex;align-items:center;gap:12px;margin-bottom:14px;
+  padding:12px 14px;border-radius:13px;
+  background:linear-gradient(120deg, rgba(79,124,255,.16), rgba(167,110,255,.13));
+  border:1px solid rgba(124,150,255,.28);
+}
+.day-highlight .dh-ic{font-size:24px;flex:none;line-height:1;}
+.day-highlight .dh-txt b{display:block;font-size:11px;font-weight:800;letter-spacing:.06em;color:var(--haze);text-transform:uppercase;margin-bottom:2px;}
+.day-highlight .dh-txt span{font-size:13px;color:var(--ink);line-height:1.45;font-weight:500;}
+.day-highlight .dh-chips{margin-top:4px;display:flex;flex-wrap:wrap;gap:5px;}
+.day-highlight .dh-chips i{font-style:normal;font-size:11px;font-weight:700;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:2px 8px;}
+
 /* 일정 항목 */
 .sched{display:flex;flex-direction:column;gap:2px;}
 .slot{display:flex;gap:14px;padding:10px 0;border-bottom:1px dashed var(--line);}
